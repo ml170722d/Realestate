@@ -1,0 +1,42 @@
+{
+  "files.exclude": {
+    "**/.git": false,
+    "**/node_modules": true
+  },
+  "files.associations": {
+    "*.env*": "env"
+  },
+  "todo-tree.general.tagGroups": {
+    "FIX": ["FIX", "FIXME"],
+    "TODO": ["TODO"]
+  },
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "foreground": "green",
+      "background": "#0011ff",
+      "opacity": 50,
+      "icon": "bug",
+      "iconColour": "red",
+      "gutterIcon": false,
+      "type": "tag"
+    },
+    "FIX": {
+      "foreground": "#ff0000",
+      // "background": "",
+      "opacity": 100,
+      "icon": "tools",
+      "iconColour": "yellow",
+      "gutterIcon": false,
+      "type": "tag"
+    },
+    "TODO": {
+      "foreground": "yellow",
+      // "background": "#2efc00",
+      "opacity": 50,
+      "icon": "clock",
+      "iconColour": "green",
+      "gutterIcon": false,
+      "type": "tag"
+    }
+  }
+}
