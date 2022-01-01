@@ -4,3 +4,6 @@ node_modules
 # envidoment files
 .env.dev
 .env
+
+# build directory
+build
