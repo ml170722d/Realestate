@@ -12,7 +12,7 @@ export default class DB {
   }
 
   /**
-   * @throws errors if something went wrong
+   * @throws error if something went wrong
    * @returns DB object
    */
   static async getInstance() {
@@ -32,6 +32,9 @@ export default class DB {
       socketTimeoutMS: 45000,
       family: 4, // Use IPv4, skip trying IPv6
     });
+
+    const conn = mongoose.connection;
+    conn.syncIndexes();
 
     Logger.info(`Connection with databse is established`);
   }
