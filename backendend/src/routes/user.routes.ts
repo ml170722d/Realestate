@@ -28,4 +28,9 @@ userRouter.route("/grantAccess").post(
   (req, res) => new UserController().grantAccess(req, res)
 );
 
+userRouter.route("/getAllUsers").get(
+  (req, res, next) => new Authenticator().authenticateToken(req, res, next),
+  (req, res) => new UserController().getAllUsers(req, res)
+);
+
 export default userRouter;

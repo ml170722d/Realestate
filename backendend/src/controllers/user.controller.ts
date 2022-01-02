@@ -20,6 +20,7 @@ export default class UserController {
         imgUrl: cookieData.imgUrl,
         type: cookieData.type,
         username: cookieData.username,
+        id: cookieData.id,
       });
       return res.status(200).json({ token: token });
     }
@@ -40,6 +41,7 @@ export default class UserController {
             imgUrl: user.imgUrl,
             type: user.type,
             username: user.username,
+            id: user.id,
           });
           return res.status(200).json({ token: token });
         }
@@ -115,30 +117,39 @@ export default class UserController {
   async grantAccess(req: express.Request, res: express.Response) {
     const { id } = req.body;
 
-    return await this.adminOperation(req, res, () => {
-      return Pending.updateOne({ user: id }, { pending: 1 });
+    return await this.adminOperation(req, res, async () => {
+      const result = await Pending.updateOne({ user: id }, { pending: 1 });
+      return res.sendStatus(200);
     });
   }
 
   async blockAccess(req: express.Request, res: express.Response) {
     const { id } = req.body;
 
-    return await this.adminOperation(req, res, () => {
-      return Pending.updateOne({ user: id }, { pending: 2 });
+    return await this.adminOperation(req, res, async () => {
+      const result = await Pending.updateOne({ user: id }, { pending: 2 });
+      return res.sendStatus(200);
     });
   }
 
   async deleteUser(req: express.Request, res: express.Response) {
     const { id } = req.body;
 
-    return await this.adminOperation(req, res, () => {
-      return User.deleteOne({ _id: id });
+    return await this.adminOperation(req, res, async () => {
+      const result = await User.deleteOne({ _id: id });
+      return res.sendStatus(200);
     });
   }
 
   async getAllUsers(req: express.Request, res: express.Response) {
-    return await this.adminOperation(req, res, () => {
-      return User.find({});
+    const { username, id } = req.body.cookieData;
+
+    return await this.adminOperation(req, res, async () => {
+      const result = await Pending.find({ user: { $nin: [id] } }).populate(
+        "user"
+      );
+      console.log(result);
+      return res.status(200).json(result);
     });
   }
 
@@ -160,9 +171,7 @@ export default class UserController {
       // check if admin is making a request
       if (userData.type === 0) {
         try {
-          const user = await lambda();
-          console.log(user);
-          return res.sendStatus(200);
+          return await lambda();
         } catch (error) {
           Logger.error(`${error}`);
           return res.status(400).json({ error: `${error}` });

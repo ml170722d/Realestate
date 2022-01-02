@@ -2,6 +2,7 @@ import express from "express";
 import Logger from "js-logger";
 import jwt from "jsonwebtoken";
 import ICookieData from "./cookie";
+import User from "../models/user";
 
 export default class Authenticator {
   private getSecret(): string {
@@ -30,7 +31,7 @@ export default class Authenticator {
    * @param res from server
    * @param next function to be chained for precessing request
    */
-  authenticateToken(
+  async authenticateToken(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
@@ -43,13 +44,25 @@ export default class Authenticator {
 
     const secret = this.getSecret();
     try {
-      const cookieData = jwt.verify(token, secret);
+      const cookieData: any = jwt.verify(token, secret);
 
-      req.body.cookieData = cookieData;
+      const { username, type, email, id } = cookieData;
+      const user = await User.findOne({
+        username: username,
+        type: type,
+        email: email,
+        id: id,
+      });
+
+      if (user) {
+        req.body.cookieData = cookieData;
+
+        return next();
+      }
     } catch (error) {
       Logger.error(`${error}`);
     }
 
-    next();
+    res.status(401).json({ msg: "Invalid cookie provided" });
   }
 }
