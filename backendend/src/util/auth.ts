@@ -25,7 +25,7 @@ export default class Authenticator {
     });
   }
 
-  verifyToken(token: string): ICookieData {
+  tokenData(token: string): ICookieData {
     return <ICookieData>jwt.verify(token, this.getSecret());
   }
 

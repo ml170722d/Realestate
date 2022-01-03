@@ -239,7 +239,7 @@ export default class UserController {
   }
 
   private async newSession(token: string) {
-    const data = new Authenticator().verifyToken(token);
+    const data = new Authenticator().tokenData(token);
 
     if (!data.exp) throw new Error("Token does not contain field 'exp'");
 
@@ -270,5 +270,16 @@ export default class UserController {
     });
     if (!result) return next();
     return res.status(401).json({ msg: "User is already singed in" });
+  }
+
+  async isOnline(req: express.Request): Promise<Boolean> {
+    const token = new Authenticator().getToken(req);
+    if (!token) return false;
+
+    const result = await Session.findOne({
+      token: token,
+    });
+    if (result) return true;
+    return false;
   }
 }
