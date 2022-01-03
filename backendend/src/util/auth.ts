@@ -18,29 +18,36 @@ export default class Authenticator {
    * @param data that is used to create token
    * @returns singed token
    */
-  generateAccessToken(data: ICookieData) {
+  generateAccessToken(data: ICookieData): string {
     return jwt.sign(data, this.getSecret(), {
       expiresIn: "1h",
       algorithm: "HS512",
     });
   }
 
+  verifyToken(token: string): ICookieData {
+    return <ICookieData>jwt.verify(token, this.getSecret());
+  }
+
+  getToken(req: express.Request): string | null {
+    const authHeader = req.headers["authorization"];
+    if (authHeader === undefined) return null;
+
+    const token = authHeader.trim();
+    if (token === "null") return null;
+    return token;
+  }
+
   /**
    * middleware that checks if token is valid and puts it on req.doby.cookieData so it can be proccessed further if need be
-   * @param req from user
-   * @param res from server
-   * @param next function to be chained for precessing request
    */
   async authenticateToken(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) {
-    const authHeader = req.headers["authorization"];
-    if (authHeader === undefined) return next();
-
-    const token = authHeader.trim();
-    if (token === null) return res.sendStatus(401);
+    const token = this.getToken(req);
+    if (token === null) return next();
 
     const secret = this.getSecret();
     try {
@@ -61,8 +68,15 @@ export default class Authenticator {
       }
     } catch (error) {
       Logger.error(`${error}`);
+      if (error instanceof jwt.TokenExpiredError) {
+        return next();
+      } else if (error instanceof jwt.NotBeforeError) {
+      } else if (error instanceof jwt.JsonWebTokenError) {
+      }
+
+      return res.sendStatus(400);
     }
 
-    res.status(401).json({ msg: "Invalid cookie provided" });
+    return res.sendStatus(401);
   }
 }

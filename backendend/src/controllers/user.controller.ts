@@ -4,25 +4,21 @@ import User from "../models/user";
 import Pending from "../models/pending";
 import Authenticator from "../util/auth";
 import ICookieData from "../util/cookie";
+import Session from "../models/session";
 
 export default class UserController {
-  /**
-   * check if login credentials are valid and if user can permision to enter site
-   * @param req from user
-   * @param res from server
-   */
   async login(req: express.Request, res: express.Response) {
     const { username, password, cookieData } = req.body;
 
     if (cookieData) {
-      const token = new Authenticator().generateAccessToken({
-        email: cookieData.email,
-        imgUrl: cookieData.imgUrl,
-        type: cookieData.type,
-        username: cookieData.username,
-        id: cookieData.id,
-      });
-      return res.status(200).json({ token: token });
+      try {
+        const token = new Authenticator().getToken(req);
+        if (token) await this.newSession(token);
+        return res.status(200).json({ token: token });
+      } catch (error) {
+        Logger.error(`${error}`);
+        return res.status(401).json({ msg: "User is already loged in" });
+      }
     }
 
     try {
@@ -43,6 +39,14 @@ export default class UserController {
             username: user.username,
             id: user.id,
           });
+
+          try {
+            await this.newSession(token);
+          } catch (error) {
+            Logger.error(`${error}`);
+            return res.status(401).json({ msg: "User is already loged in" });
+          }
+
           return res.status(200).json({ token: token });
         }
 
@@ -59,8 +63,23 @@ export default class UserController {
       return res.status(200).json({ msg: msg || "No user with such username" });
     } catch (error) {
       Logger.error(`${error}`);
-      return res.sendStatus(501);
+      return res.sendStatus(500);
     }
+  }
+
+  async logout(req: express.Request, res: express.Response) {
+    const { cookieData } = req.body;
+    if (!cookieData) return res.sendStatus(401);
+
+    const userData: ICookieData = cookieData;
+    try {
+      const result = await Session.deleteOne({ user: userData.id });
+    } catch (error) {
+      Logger.error(`${error}`);
+      return res.sendStatus(500);
+    }
+
+    return res.status(200).json({ token: null });
   }
 
   async register(req: express.Request, res: express.Response) {
@@ -142,15 +161,52 @@ export default class UserController {
   }
 
   async getAllUsers(req: express.Request, res: express.Response) {
-    const { username, id } = req.body.cookieData;
+    const { id } = req.body.cookieData;
 
     return await this.adminOperation(req, res, async () => {
       const result = await Pending.find({ user: { $nin: [id] } }).populate(
         "user"
       );
-      console.log(result);
       return res.status(200).json(result);
     });
+  }
+
+  async getAllOnlineUsers(req: express.Request, res: express.Response) {
+    return await this.adminOperation(req, res, async () => {
+      const result = await Session.find({}).populate("user");
+
+      const users = result.map((session) => {
+        return session.user;
+      });
+
+      return res.status(200).json(users);
+    });
+  }
+
+  async changePassword(req: express.Request, res: express.Response) {
+    const { cookieData, newPassword } = req.body;
+    return await this.userOperation(req, res, async () => {
+      const userData: ICookieData = cookieData;
+      const result = await User.updateOne(
+        { username: userData.username, email: userData.email, id: userData.id },
+        { password: newPassword }
+      );
+      return res.sendStatus(200);
+    });
+  }
+
+  private async userOperation(
+    req: express.Request,
+    res: express.Response,
+    lambda: CallableFunction
+  ) {
+    try {
+      return await lambda();
+    } catch (error) {
+      Logger.error(`${error}`);
+    }
+
+    return res.sendStatus(401);
   }
 
   /**
@@ -180,5 +236,39 @@ export default class UserController {
     }
 
     return res.sendStatus(401);
+  }
+
+  private async newSession(token: string) {
+    const data = new Authenticator().verifyToken(token);
+
+    if (!data.exp) throw new Error("Token does not contain field 'exp'");
+
+    await Session.insertMany({
+      sessionToken: token,
+      user: data.id,
+      expires: new Date(data.exp * 1000),
+    });
+  }
+
+  /**
+   * Check if user is loged onto the system
+   * @param req
+   * @param res
+   * @param next
+   * @returns
+   */
+  async userLogedIn(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) {
+    const token = new Authenticator().getToken(req);
+    if (!token) return next();
+
+    const result = await Session.findOne({
+      token: token,
+    });
+    if (!result) return next();
+    return res.status(401).json({ msg: "User is already singed in" });
   }
 }
