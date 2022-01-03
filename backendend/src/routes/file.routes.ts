@@ -19,6 +19,7 @@ const userStorage = multer.diskStorage({
       const extension = file.originalname.split(".")[1];
 
       filename = username.concat(".").concat(extension);
+      req.body.username = username;
       req.body.success = true;
     } catch (error) {
       Logger.error(`${error}`);
@@ -71,6 +72,7 @@ fileRouter.route("/uploadProfilePicture").post(
     return res.sendStatus(401);
   },
   userMulter.single("img"),
+  (req, res, next) => new UserController().updateUserImg(req, res, next),
   (req, res) => new FileController().assess(req, res)
 );
 

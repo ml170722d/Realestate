@@ -98,6 +98,7 @@ export default class UserController {
     } = req.body;
 
     let msg;
+    const defaultPic = process.env.SITE_URL!.concat("/u/default.jpg");
     try {
       const user = await User.insertMany({
         name: name,
@@ -109,7 +110,7 @@ export default class UserController {
         phone: phone,
         email: email,
         type: type,
-        imgUrl: imgUrl,
+        imgUrl: imgUrl || defaultPic,
         agency: agency,
       });
 
@@ -181,6 +182,29 @@ export default class UserController {
 
       return res.status(200).json(users);
     });
+  }
+
+  async updateUserImg(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) {
+    let err: Error | null = null;
+    try {
+      const username = req.body.username;
+      const siteUrl = process.env.SITE_URL;
+      if (req.file && username && siteUrl) {
+        const imgUrl = siteUrl.concat("/u/").concat(req.file?.filename);
+        await User.updateOne(
+          { username: req.body.username },
+          { imgUrl: imgUrl }
+        );
+      }
+    } catch (error) {
+      Logger.error(`${error}`);
+      err = <Error>error;
+    }
+    return next(err);
   }
 
   async changePassword(req: express.Request, res: express.Response) {
