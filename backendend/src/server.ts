@@ -1,8 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import Logger from "js-logger";
+
 import DB from "./db/DB";
 import userRouter from "./routes/user.routes";
+import fileRouter from "./routes/file.routes";
 
 dotenv.config();
 Logger.useDefaults({
@@ -17,6 +19,7 @@ app.use(express.json());
 
 const router = express.Router();
 router.use(userRouter);
+router.use(fileRouter);
 
 const port = 8000;
 
