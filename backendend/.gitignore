@@ -4,3 +4,9 @@
 
 # build directory
 build
+
+# pictures
+public/**/*.jpg
+public/**/*.jpeg
+public/**/*.png
+!public/**/default.jpg
