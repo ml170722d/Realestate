@@ -5,10 +5,13 @@ import Pending from "../models/pending";
 import Authenticator from "../util/auth";
 import ICookieData from "../interface/cookie.interface";
 import Session from "../models/session";
+import IUser from "../interface/user.interface";
+import IPending from "../interface/pending.interfece";
 
 export default class UserController {
   async login(req: express.Request, res: express.Response) {
-    const { username, password, cookieData } = req.body;
+    const cookieData: ICookieData = req.body.cookieData;
+    const userInfo: IUser = req.body;
 
     if (cookieData) {
       try {
@@ -23,13 +26,13 @@ export default class UserController {
 
     try {
       const user = await User.findOne(
-        { username: username, password: password },
+        { username: userInfo.username, password: userInfo.password },
         { id: 1, username: 1, email: 1, imgUrl: 1, type: 1 }
       );
 
       let msg;
       if (user) {
-        const pending = await Pending.findOne({ user: user.id });
+        const pending: IPending = await Pending.findOne({ user: user.id });
 
         if (pending && pending.pending === 1) {
           const token = new Authenticator().generateAccessToken({
@@ -62,7 +65,7 @@ export default class UserController {
       } else {
         msg = "Invalid credentials";
       }
-      return res.status(200).json({ msg: msg });
+      return res.status(401).json({ msg: msg });
     } catch (error) {
       Logger.error(`${error}`);
       return res.sendStatus(500);
@@ -70,10 +73,9 @@ export default class UserController {
   }
 
   async logout(req: express.Request, res: express.Response) {
-    const { cookieData } = req.body;
-    if (!cookieData) return res.sendStatus(401);
+    const userData: ICookieData = req.body.cookieData;
+    if (!userData) return res.sendStatus(401);
 
-    const userData: ICookieData = cookieData;
     try {
       const result = await Session.deleteOne({ user: userData.id });
     } catch (error) {
@@ -85,48 +87,27 @@ export default class UserController {
   }
 
   async register(req: express.Request, res: express.Response) {
-    const {
-      name,
-      surname,
-      username,
-      password,
-      city,
-      birthday,
-      phone,
-      email,
-      type,
-      imgUrl,
-      agency,
-    } = req.body;
+    const userData: IUser = req.body;
 
     let msg;
-    const defaultPic = process.env.HOST!.concat("/u/default.svg");
+    const defaultPic = process.env.HOST! + "/u/default.svg";
     try {
-      const user = await User.insertMany({
-        name: name,
-        surname: surname,
-        username: username,
-        password: password,
-        city: city,
-        birthday: birthday,
-        phone: phone,
-        email: email,
-        type: type,
-        imgUrl: imgUrl || defaultPic,
-        agency: agency,
+      const user: IUser[] = await User.insertMany({
+        name: userData.name,
+        surname: userData.surname,
+        username: userData.username,
+        password: userData.password,
+        city: userData.city,
+        birthday: userData.birthday,
+        phone: userData.phone,
+        email: userData.email,
+        type: userData.type,
+        imgUrl: userData.imgUrl || defaultPic,
+        agency: userData.agency,
       });
 
       if (user) {
-        const id = user[0].id;
-
-        const pending = await Pending.insertMany({
-          user: id,
-          pending: 0,
-        });
-
-        if (pending) {
-          return res.sendStatus(202);
-        }
+        return res.sendStatus(202);
       }
     } catch (error) {
       Logger.error(`${error}`);
@@ -194,13 +175,10 @@ export default class UserController {
     let err: Error | null = null;
     try {
       const username = req.body.username;
-      const siteUrl = process.env.SITE_URL;
+      const siteUrl = process.env.HOST;
       if (req.file && username && siteUrl) {
-        const imgUrl = siteUrl.concat("/u/").concat(req.file?.filename);
-        await User.updateOne(
-          { username: req.body.username },
-          { imgUrl: imgUrl }
-        );
+        const imgUrl = siteUrl + "/u/" + req.file?.filename;
+        await User.updateOne({ username: username }, { imgUrl: imgUrl });
       }
     } catch (error) {
       Logger.error(`${error}`);
