@@ -59,8 +59,10 @@ export default class UserController {
             msg = "Your registration request is being reviewed";
             break;
         }
+      } else {
+        msg = "Invalid credentials";
       }
-      return res.status(200).json({ msg: msg || "No user with such username" });
+      return res.status(200).json({ msg: msg });
     } catch (error) {
       Logger.error(`${error}`);
       return res.sendStatus(500);
