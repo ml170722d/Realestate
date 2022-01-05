@@ -1,12 +1,12 @@
 import express from "express";
 import Logger from "js-logger";
 import jwt from "jsonwebtoken";
-import ICookieData from "./cookie";
+import ICookieData from "../interface/cookie.interface";
 import User from "../models/user";
 
 export default class Authenticator {
   private getSecret(): string {
-    const secret = process.env.TOKEN_SECRET;
+    const secret = process.env.SECRET;
     if (!secret)
       throw new Error("Environment variable TOKEN_SECRET is not defind!!!");
 

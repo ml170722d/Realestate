@@ -3,7 +3,7 @@ import Logger from "js-logger";
 import User from "../models/user";
 import Pending from "../models/pending";
 import Authenticator from "../util/auth";
-import ICookieData from "../util/cookie";
+import ICookieData from "../interface/cookie.interface";
 import Session from "../models/session";
 
 export default class UserController {
@@ -100,7 +100,7 @@ export default class UserController {
     } = req.body;
 
     let msg;
-    const defaultPic = process.env.SITE_URL!.concat("/u/default.jpg");
+    const defaultPic = process.env.HOST!.concat("/u/default.svg");
     try {
       const user = await User.insertMany({
         name: name,
