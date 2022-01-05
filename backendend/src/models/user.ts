@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
+import IUser from "../interface/user.interface";
 import Pending from "./pending";
+import IPending from "../interface/pending.interfece";
+import Agency from "./agency";
+import IAgency from "../interface/agency.interface";
 
 const User = new mongoose.Schema(
   {
@@ -53,8 +57,22 @@ const User = new mongoose.Schema(
 );
 
 User.pre("deleteOne", async function (next) {
-  await Pending.deleteOne({ user: this._conditions._id });
+  const id = this._conditions._id;
+  await Pending.deleteOne({ user: id });
   next();
+});
+
+User.post("insertMany", async function (next) {
+  const docs: Array<IUser> = next;
+  await docs.forEach(async (user) => {
+    const query: IPending = { pending: 0, user: user.id };
+    await Pending.insertMany(query);
+
+    if (user.agency) {
+      const query: IAgency = { id: user.agency };
+      await Agency.updateOne(query, { $push: { workers: user.id } });
+    }
+  });
 });
 
 export default mongoose.model("User", User, "users");
