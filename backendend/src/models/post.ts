@@ -1,54 +1,70 @@
 import mongoose from "mongoose";
 
-const RealEstate = new mongoose.Schema({
+const Post = new mongoose.Schema({
   title: {
     type: String,
+    required: true,
   },
   city: {
     type: String,
+    required: true,
   },
   municipality: {
     type: String,
+    required: true,
   },
   microlocation: {
     type: String,
+    required: true,
   },
   street: {
     type: String,
+    required: true,
   },
   area: {
     type: Number,
+    required: true,
   },
   rooms: {
     type: Number,
+    required: true,
   },
   constructionYear: {
     type: Number,
+    required: true,
   },
   state: {
     type: String,
+    required: true,
   },
   heating: {
     type: String,
+    required: true,
   },
   floor: {
     type: Number,
+    required: true,
   },
   totalFloors: {
     type: Number,
+    required: true,
   },
   parking: {
     type: String,
     enum: ["YES", "NO"],
+    required: true,
   },
   monthlyUtilities: {
     type: Number,
+    required: true,
   },
   price: {
     type: Number,
+    required: true,
   },
   about: {
     type: String,
+    required: true,
   },
   characteristics: {
     type: Array,
@@ -58,22 +74,26 @@ const RealEstate = new mongoose.Schema({
       "Internet",
       "garage",
       "intercom",
-      "with garden",
+      "garden",
       "phone",
       "elevator",
       "climate",
       "loggia",
       "franc. balcony",
     ],
+    required: true,
   },
   type: {
     type: String,
-    enum: ["Apartment", "House", "Studio", "OfficeSpace"],
+    enum: ["APARTMENT", "HOUSE", "COTTAGE", "SHOP", "WAREHOUSE"],
+    required: true,
   },
-  // TODO see how to ref many advertiser from here and if is it possible at all
-  //   advertiser: {
-  //     type: Array,
-  //   },
+  advertiser: [
+    {
+      id: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
-export default mongoose.model("RealEstate", RealEstate, "realestates");
+export default mongoose.model("Post", Post, "posts");
