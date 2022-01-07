@@ -75,7 +75,7 @@ const User = new mongoose.Schema(
           if (v.length >= 0 && v.length <= 5) return true;
           return false;
         },
-        message: () => "List of favorites is empty or full",
+        message: "List of favorites is empty or full",
       },
     },
   },

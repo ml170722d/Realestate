@@ -94,7 +94,7 @@ const Post = new mongoose.Schema({
   },
   advertiser: [
     {
-      id: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
   ],
