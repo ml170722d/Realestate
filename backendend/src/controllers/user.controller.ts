@@ -105,7 +105,7 @@ export default class UserController {
         type: userData.type,
         imgUrl: userData.imgUrl,
         agency: userData.agency,
-        fovorits: userData.fovorits || [],
+        fovorits: userData.fovorits,
       });
 
       if (user) {
