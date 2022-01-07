@@ -22,7 +22,15 @@ const User = new mongoose.Schema(
     },
     email: {
       type: String,
-      unique: true,
+      unique: [true, "Email taken"],
+      validate: {
+        validator: (v: string) => {
+          return /^[a-zA-Z0-9.!#$%&*+/=?^_|~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/.test(
+            v
+          );
+        },
+        message: "Invalid email format",
+      },
     },
     phone: {
       type: String,
@@ -45,19 +53,31 @@ const User = new mongoose.Schema(
     },
     imgUrl: {
       type: String,
-      default: null,
+      default: () => {
+        return process.env.HOST! + "/u/default.svg";
+      },
     },
     agency: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Agency",
       default: null,
     },
-    fovorits: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Post",
+    fovorits: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Post",
+        },
+      ],
+      default: [],
+      validate: {
+        validator: <T>(v: Array<T>) => {
+          if (v.length >= 0 && v.length <= 5) return true;
+          return false;
+        },
+        message: () => "List of favorites is empty or full",
       },
-    ],
+    },
   },
   { emitIndexErrors: true }
 );

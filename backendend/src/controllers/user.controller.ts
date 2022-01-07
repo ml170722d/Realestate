@@ -7,6 +7,8 @@ import ICookieData from "../interface/cookie.interface";
 import Session from "../models/session";
 import IUser from "../interface/user.interface";
 import IPending from "../interface/pending.interfece";
+import IResponce from "../interface/responce.interface";
+import IPost from "../interface/post.interface";
 
 export default class UserController {
   async login(req: express.Request, res: express.Response) {
@@ -90,7 +92,6 @@ export default class UserController {
     const userData: IUser = req.body;
 
     let msg;
-    const defaultPic = process.env.HOST! + "/u/default.svg";
     try {
       const user: IUser[] = await User.insertMany({
         name: userData.name,
@@ -102,7 +103,7 @@ export default class UserController {
         phone: userData.phone,
         email: userData.email,
         type: userData.type,
-        imgUrl: userData.imgUrl || defaultPic,
+        imgUrl: userData.imgUrl,
         agency: userData.agency,
         fovorits: userData.fovorits || [],
       });
@@ -197,6 +198,36 @@ export default class UserController {
         { password: newPassword }
       );
       return res.sendStatus(200);
+    });
+  }
+
+  async addFavorite(req: express.Request, res: express.Response<IResponce>) {
+    return await this.userOperation(req, res, async () => {
+      const userData: ICookieData = req.body;
+      const postData: IPost = req.body;
+
+      const result = await User.findByIdAndUpdate(userData.id, {
+        $push: {
+          favorits: postData.id,
+        },
+      });
+
+      return res.status(200).json();
+    });
+  }
+
+  async removeFavorite(req: express.Request, res: express.Response<IResponce>) {
+    return await this.userOperation(req, res, async () => {
+      const userData: ICookieData = req.body;
+      const postData: IPost = req.body;
+
+      const result = await User.findByIdAndUpdate(userData.id, {
+        $pull: {
+          favorits: postData.id,
+        },
+      });
+
+      return res.status(200).json();
     });
   }
 
