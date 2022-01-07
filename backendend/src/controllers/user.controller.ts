@@ -15,7 +15,7 @@ export default class UserController {
 
     if (cookieData) {
       try {
-        const token = new Authenticator().getToken(req);
+        const token = Authenticator.getToken(req.headers);
         if (token) await this.newSession(token);
         return res.status(200).json({ token: token });
       } catch (error) {
@@ -35,7 +35,7 @@ export default class UserController {
         const pending: IPending = await Pending.findOne({ user: user.id });
 
         if (pending && pending.pending === 1) {
-          const token = new Authenticator().generateAccessToken({
+          const token = Authenticator.generateAccessToken({
             email: user.email,
             imgUrl: user.imgUrl,
             type: user.type,
@@ -104,6 +104,7 @@ export default class UserController {
         type: userData.type,
         imgUrl: userData.imgUrl || defaultPic,
         agency: userData.agency,
+        fovorits: userData.fovorits || [],
       });
 
       if (user) {
@@ -243,7 +244,7 @@ export default class UserController {
   }
 
   private async newSession(token: string) {
-    const data = new Authenticator().tokenData(token);
+    const data = Authenticator.tokenData(token);
 
     if (!data.exp) throw new Error("Token does not contain field 'exp'");
 
@@ -266,7 +267,7 @@ export default class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    const token = new Authenticator().getToken(req);
+    const token = Authenticator.getToken(req.headers);
     if (!token) return next();
 
     const result = await Session.findOne({
@@ -276,8 +277,8 @@ export default class UserController {
     return res.status(401).json({ msg: "User is already singed in" });
   }
 
-  async isOnline(req: express.Request): Promise<Boolean> {
-    const token = new Authenticator().getToken(req);
+  static async isOnline(req: express.Request): Promise<Boolean> {
+    const token = Authenticator.getToken(req.headers);
     if (!token) return false;
 
     const result = await Session.findOne({

@@ -11,4 +11,5 @@ export default interface IUser {
   type?: Number;
   imgUrl?: String;
   agency?: String;
+  fovorits?: String[];
 }

@@ -52,6 +52,12 @@ const User = new mongoose.Schema(
       ref: "Agency",
       default: null,
     },
+    fovorits: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
   },
   { emitIndexErrors: true }
 );

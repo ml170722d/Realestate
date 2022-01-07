@@ -14,8 +14,9 @@ const userStorage = multer.diskStorage({
     let filename = "";
     let err: Error | null = null;
     try {
-      const auth = new Authenticator();
-      const { username } = auth.tokenData(auth.getToken(req)!);
+      const { username } = Authenticator.tokenData(
+        Authenticator.getToken(req.headers)!
+      );
       const extension = file.originalname.split(".")[1];
 
       filename = username.concat(".").concat(extension);
@@ -41,7 +42,7 @@ const realestateStorage = multer.diskStorage({
       const id = new mongoose.Types.ObjectId().toString();
       const extension = file.originalname.split(".")[1];
 
-      filename = id.concat(".").concat(extension);
+      filename = id + "." + extension;
       req.body.success = true;
     } catch (error) {
       Logger.error(`${error}`);
@@ -68,7 +69,8 @@ fileRouter.use("/re", express.static("public/realestate"));
 fileRouter.route("/uploadProfilePicture").post(
   (req, res, next) => new Authenticator().authenticateToken(req, res, next),
   async (req, res, next) => {
-    if (await new UserController().isOnline(req)) return next();
+    const isOnline = await UserController.isOnline(req);
+    if (isOnline) return next();
     return res.sendStatus(401);
   },
   userMulter.single("img"),

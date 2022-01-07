@@ -1,11 +1,13 @@
 import express from "express";
+import { IncomingHttpHeaders } from "http";
 import Logger from "js-logger";
 import jwt from "jsonwebtoken";
 import ICookieData from "../interface/cookie.interface";
+import Session from "../models/session";
 import User from "../models/user";
 
 export default class Authenticator {
-  private getSecret(): string {
+  private static getSecret(): string {
     const secret = process.env.SECRET;
     if (!secret)
       throw new Error("Environment variable TOKEN_SECRET is not defind!!!");
@@ -18,23 +20,22 @@ export default class Authenticator {
    * @param data that is used to create token
    * @returns singed token
    */
-  generateAccessToken(data: ICookieData): string {
-    return jwt.sign(data, this.getSecret(), {
+  static generateAccessToken(data: ICookieData): string {
+    return jwt.sign(data, Authenticator.getSecret(), {
       expiresIn: "1h",
       algorithm: "HS512",
     });
   }
 
-  tokenData(token: string): ICookieData {
-    return <ICookieData>jwt.verify(token, this.getSecret());
+  static tokenData(token: string): ICookieData {
+    return <ICookieData>jwt.verify(token, Authenticator.getSecret());
   }
 
-  getToken(req: express.Request): string | null {
-    const authHeader = req.headers["authorization"];
-    if (authHeader === undefined) return null;
+  static getToken(headers: IncomingHttpHeaders): string | null {
+    const authHeader = headers.authorization;
+    if (authHeader === undefined || authHeader === "null") return null;
 
     const token = authHeader.trim();
-    if (token === "null") return null;
     return token;
   }
 
@@ -46,10 +47,10 @@ export default class Authenticator {
     res: express.Response,
     next: express.NextFunction
   ) {
-    const token = this.getToken(req);
+    const token = Authenticator.getToken(req.headers);
     if (token === null) return next();
 
-    const secret = this.getSecret();
+    const secret = Authenticator.getSecret();
     try {
       const cookieData: any = jwt.verify(token, secret);
 
@@ -69,6 +70,7 @@ export default class Authenticator {
     } catch (error) {
       Logger.error(`${error}`);
       if (error instanceof jwt.TokenExpiredError) {
+        await Session.deleteOne({ token: token });
         return next();
       } else if (error instanceof jwt.NotBeforeError) {
       } else if (error instanceof jwt.JsonWebTokenError) {
