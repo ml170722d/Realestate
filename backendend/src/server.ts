@@ -4,6 +4,7 @@ import Logger from "js-logger";
 import DB from "./util/DB";
 import Host from "./util/host";
 import { userRouter } from "./routers/user.router";
+import { fileRouter } from "./routers/file.router";
 
 dotenv.config();
 Logger.useDefaults({
@@ -18,6 +19,7 @@ app.use(express.json());
 
 const router = express.Router();
 router.use(userRouter);
+router.use(fileRouter);
 
 const port = process.env.PORT;
 
