@@ -1,3 +1,10 @@
 # envidoment files
 .env.dev
 .env
+
+# pictures
+**/*.svg
+**/*.png
+**/*.jpg
+**/*.jpeg
+!**/default.svg

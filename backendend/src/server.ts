@@ -1,7 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import Logger from "js-logger";
-import DB from "./db/DB";
+import DB from "./util/DB";
+import Host from "./util/host";
 
 dotenv.config();
 Logger.useDefaults({
@@ -16,12 +17,12 @@ app.use(express.json());
 
 const router = express.Router();
 
-const port = 8000;
+const port = process.env.PORT;
 
 app.use("/", router);
 const server = app.listen(port, async () => {
   try {
-    Logger.info(`Express has started working on http://localhost:${port}`);
+    Logger.info(`Express has started working on ${Host.getHostUrl()}`);
     const db = await DB.getInstance();
   } catch (error) {
     Logger.error(`${error}`);
