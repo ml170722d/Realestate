@@ -83,7 +83,7 @@ export default class UserController {
 
   async getAll(req: express.Request, res: express.Response<IResponce>) {
     try {
-      const filter: IUser = { password: 0, access: 0 };
+      const filter: IUser = { password: 0, access: 0, type: 0, favorite: 0 };
       const users: IUser[] = await User.find({}, filter);
 
       return res.status(200).json({ body: users });

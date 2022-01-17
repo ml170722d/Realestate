@@ -14,5 +14,5 @@ export default interface IUser extends IModel {
   agency?: String | Number;
   licence?: String | Number;
   access?: Boolean | Number;
-  fovorits?: String[] | Number;
+  favorite?: String[] | Number;
 }
