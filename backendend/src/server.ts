@@ -5,6 +5,7 @@ import DB from "./util/DB";
 import Host from "./util/host";
 import { userRouter } from "./routers/user.router";
 import { fileRouter, publicRouter } from "./routers/file.router";
+import { adminRouter } from "./routers/admin.router";
 
 dotenv.config();
 Logger.useDefaults({
@@ -20,6 +21,7 @@ app.use(express.json());
 const router = express.Router();
 router.use(userRouter);
 router.use(fileRouter);
+router.use(adminRouter);
 
 const port = process.env.PORT;
 
