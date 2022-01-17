@@ -80,4 +80,16 @@ export default class UserController {
       return res.status(400).json({});
     }
   }
+
+  async getAll(req: express.Request, res: express.Response<IResponce>) {
+    try {
+      const filter: IUser = { password: 0, access: 0 };
+      const users: IUser[] = await User.find({}, filter);
+
+      return res.status(200).json({ body: users });
+    } catch (error) {
+      Logger.error(`${error}`);
+      return res.status(400).json({});
+    }
+  }
 }
