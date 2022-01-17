@@ -7,16 +7,22 @@ import User from "../models/user";
 export default class UserController {
   async login(req: express.Request, res: express.Response<IResponce>) {
     const { username, password } = req.body;
-    const query: IUser = { username: username, password: password };
-    const filter: IUser = { password: 0 };
+    const query: IUser = {
+      username: username,
+      password: password,
+      access: true,
+    };
+    const filter: IUser = { password: 0, access: 0 };
     const user: IUser = await User.findOne(query, filter);
 
     try {
       if (user) return res.status(200).json({ body: user });
-      return res.status(401).json({ msg: "Invalid credentials" });
+      return res.status(401).json({
+        msg: "Invalid credentials or submition is still being reviewed",
+      });
     } catch (error) {
       Logger.error(`${error}`);
-      return res.status(400).json({ msg: (<Error>error).message });
+      return res.status(400).json({});
     }
   }
 
@@ -44,7 +50,7 @@ export default class UserController {
       return res.status(401).json({ msg: "Invalid credentials" });
     } catch (error) {
       Logger.error(`${error}`);
-      return res.status(400).json({ msg: (<Error>error).message });
+      return res.status(400).json({});
     }
   }
 
@@ -71,7 +77,7 @@ export default class UserController {
       return res.status(400).json({});
     } catch (error) {
       Logger.error(`${error}`);
-      return res.status(400).json({ msg: (<Error>error).message });
+      return res.status(400).json({});
     }
   }
 }
