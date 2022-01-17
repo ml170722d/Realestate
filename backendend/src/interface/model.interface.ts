@@ -1,3 +1,3 @@
 export default interface IModel {
-  id?: String;
+  id?: String | Number;
 }
