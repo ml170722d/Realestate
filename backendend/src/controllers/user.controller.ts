@@ -44,7 +44,9 @@ export default class UserController {
     };
 
     try {
-      const user: IUser = await User.findOneAndUpdate(query, update);
+      const user: IUser = await User.findOneAndUpdate(query, update, {
+        runValidators: true,
+      });
 
       if (user) return res.status(200).json({});
       return res.status(401).json({ msg: "Invalid credentials" });

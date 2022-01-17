@@ -11,6 +11,20 @@ const User = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      validate: {
+        validator: (v: string) => {
+          return /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[-+_!@#$%^&*.,?])[A-Za-z][A-Za-z\d-+_!@#$%^&*.,?]{7,}/.test(
+            v
+          );
+        },
+        message:
+          "Invalid password format. " +
+          "Password must be at least 8 characters long, " +
+          "start with letter, " +
+          "have at least one lower and upper case letter, " +
+          "digit and special character",
+      },
+      minlength: [8, "Password too short"],
     },
     name: {
       type: String,
