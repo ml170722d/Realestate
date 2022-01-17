@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Host from "../util/host";
 
 const User = new mongoose.Schema(
   {
@@ -59,7 +60,7 @@ const User = new mongoose.Schema(
       type: String,
       required: true,
       default: () => {
-        return process.env.HOST! + "/u/default.svg";
+        return Host.getHostUrl() + "/public/u/default.svg";
       },
     },
     agency: {

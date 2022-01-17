@@ -14,8 +14,9 @@ avatarRouter
   );
 
 const fileRouter = express.Router();
-
-fileRouter.use("/public", express.static("public"));
 fileRouter.use("/avatar", avatarRouter);
 
-export { fileRouter };
+const publicRouter = express.Router();
+publicRouter.use("/public", express.static("public"));
+
+export { fileRouter, publicRouter };

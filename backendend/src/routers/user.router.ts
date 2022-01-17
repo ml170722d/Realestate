@@ -2,17 +2,17 @@ import express from "express";
 import UserController from "../controllers/user.controller";
 import IResponce from "../interface/responce.interface";
 
-const userRouter = express.Router();
+const authRouter = express.Router();
 
-userRouter.route("/login").post((req, res: express.Response<IResponce>) => {
+authRouter.route("/login").post((req, res: express.Response<IResponce>) => {
   new UserController().login(req, res);
 });
 
-userRouter.route("/logout").delete((req, res: express.Response<IResponce>) => {
+authRouter.route("/logout").delete((req, res: express.Response<IResponce>) => {
   new UserController().logout(req, res);
 });
 
-userRouter.route("/register").post((req, res: express.Response<IResponce>) => {
+authRouter.route("/register").post((req, res: express.Response<IResponce>) => {
   new UserController().register(req, res);
 });
 
@@ -24,6 +24,9 @@ changeRouter
     new UserController().changePass(req, res);
   });
 
+const userRouter = express.Router();
+
+userRouter.use("/auth", authRouter);
 userRouter.use("/change", changeRouter);
 
 export { userRouter };
