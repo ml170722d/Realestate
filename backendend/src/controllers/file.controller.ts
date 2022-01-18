@@ -32,9 +32,11 @@ export default class FileController {
     };
 
     try {
-      const result: IUser = await User.findByIdAndUpdate(user.id, update);
+      const result: IUser = await User.findByIdAndUpdate(user.id, update, {
+        new: true,
+      });
 
-      if (result) return res.status(200).json({ body: update.imgUrl });
+      if (result) return res.status(200).json({ body: result.imgUrl });
       return res.status(400).json({ msg: "User was not found" });
     } catch (error) {
       Logger.error(`${error}`);
