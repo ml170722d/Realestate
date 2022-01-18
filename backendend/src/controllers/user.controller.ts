@@ -83,12 +83,30 @@ export default class UserController {
     }
   }
 
-  async getAll(req: express.Request, res: express.Response<IResponce>) {
+  async all(req: express.Request, res: express.Response<IResponce>) {
     try {
-      const filter: IUser = { password: 0, access: 0, type: 0, favorite: 0 };
+      const filter: IUser = { password: 0, type: 0, favorite: 0 };
       const users: IUser[] = await User.find({}, filter);
 
       return res.status(200).json({ body: users });
+    } catch (error) {
+      Logger.error(`${error}`);
+      return res.status(400).json({});
+    }
+  }
+
+  async get(req: express.Request, res: express.Response<IResponce>) {
+    const { id } = req.params;
+    const filter: IUser = {
+      password: 0,
+      favorite: 0,
+    };
+
+    try {
+      const result = await User.findById(id, filter);
+
+      if (result) return res.status(200).json({ body: result });
+      return res.status(400).json({});
     } catch (error) {
       Logger.error(`${error}`);
       return res.status(400).json({});

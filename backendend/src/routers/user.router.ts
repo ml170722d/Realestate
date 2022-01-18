@@ -26,8 +26,12 @@ changeRouter
 
 const userRouter = express.Router();
 
+userRouter.route("/user/:id").get((req, res) => {
+  new UserController().get(req, res);
+});
+
 userRouter.route("/users").get((req, res) => {
-  new UserController().getAll(req, res);
+  new UserController().all(req, res);
 });
 
 userRouter.use("/auth", authRouter);
