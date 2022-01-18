@@ -13,7 +13,7 @@ const Agency = new mongoose.Schema(
       type: String,
     },
     pib: {
-      type: String,
+      type: Number,
       unique: true,
     },
     city: {
