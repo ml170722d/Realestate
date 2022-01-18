@@ -33,7 +33,8 @@ export default class MicrolocationController {
     }
   }
 
-  async remove(req: express.Request, res: express.Response) {
+  // FIX Can't delete microlocation if its used in at leat one post
+  async remove(req: express.Request, res: express.Response<IResponce>) {
     const data: IMicrolocation = req.body;
 
     try {
@@ -49,7 +50,7 @@ export default class MicrolocationController {
     }
   }
 
-  async all(req: express.Request, res: express.Response) {
+  async all(req: express.Request, res: express.Response<IResponce>) {
     try {
       const result = await Microlocation.find();
 
@@ -60,4 +61,19 @@ export default class MicrolocationController {
       return res.status(500).json({ msg: (<Error>error).message });
     }
   }
+
+  async get(req: express.Request, res: express.Response<IResponce>) {
+    const { id } = req.params;
+    try {
+      const result = await Microlocation.findById(id);
+
+      if (result) return res.status(200).json({ body: result });
+      return res.status(400).json({});
+    } catch (error) {
+      Logger.error(`${error}`);
+      return res.status(500).json({ msg: (<Error>error).message });
+    }
+  }
+
+  //TODO Let microlocation[location] be deleted if it's unused
 }
