@@ -54,7 +54,7 @@ export default class AdminController {
     }
   }
 
-  async deleteUser(req: express.Request, res: express.Response<IResponce>) {
+  async removeUser(req: express.Request, res: express.Response<IResponce>) {
     const { id, username } = req.body;
     const query: IUser = {
       id: id,

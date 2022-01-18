@@ -8,7 +8,7 @@ export default class AgencyController {
   async add(req: express.Request, res: express.Response<IResponce>) {
     const data: IAgency = req.body;
     const query: IAgency = {
-      adress: data.adress,
+      address: data.address,
       city: data.city,
       name: data.name,
       phone: data.phone,
