@@ -1,7 +1,7 @@
 import express from "express";
 import AdminController from "../controllers/admin.controller";
 import { agencyRouter } from "./agency.router";
-import { mlRouter } from "./microlocation.router";
+import { locRouter } from "./location.router";
 
 const userRouter = express.Router();
 
@@ -25,6 +25,6 @@ const adminRouter = express.Router();
 
 adminRouter.use("/user", userRouter);
 adminRouter.use("/agency", agencyRouter);
-adminRouter.use("/ml", mlRouter);
+adminRouter.use("/ml", locRouter);
 
 export { adminRouter };

@@ -1,23 +1,23 @@
 import express from "express";
-import Microlocation from "../models/microlocation";
-import IMicrolocation from "../interface/microlocation.interface";
+import Location from "../models/location";
+import ILocation from "../interface/location.interface";
 import IResponce from "../interface/responce.interface";
 import Logger from "js-logger";
 
-export default class MicrolocationController {
+export default class LocationController {
   async add(req: express.Request, res: express.Response<IResponce>) {
-    const data: IMicrolocation = req.body;
-    const query: IMicrolocation = {
+    const data: ILocation = req.body;
+    const query: ILocation = {
       street: data.street,
       city: data.city,
       municipality: data.municipality,
     };
-    const update: IMicrolocation = {
-      locations: data.locations,
+    const update: ILocation = {
+      microlocations: data.microlocations,
     };
 
     try {
-      const result = await Microlocation.findOneAndUpdate(
+      const result = await Location.findOneAndUpdate(
         query,
         {
           $addToSet: update,
@@ -35,10 +35,10 @@ export default class MicrolocationController {
 
   // FIX Can't delete microlocation if its used in at leat one post
   async remove(req: express.Request, res: express.Response<IResponce>) {
-    const data: IMicrolocation = req.body;
+    const data: ILocation = req.body;
 
     try {
-      const result = await Microlocation.findByIdAndDelete(data.id);
+      const result = await Location.findByIdAndDelete(data.id);
 
       if (result) return res.status(200).json({ body: result });
       return res
@@ -52,7 +52,7 @@ export default class MicrolocationController {
 
   async all(req: express.Request, res: express.Response<IResponce>) {
     try {
-      const result = await Microlocation.find();
+      const result = await Location.find();
 
       if (result) return res.status(200).json({ body: result });
       return res.status(400).json({});
@@ -65,7 +65,7 @@ export default class MicrolocationController {
   async get(req: express.Request, res: express.Response<IResponce>) {
     const { id } = req.params;
     try {
-      const result = await Microlocation.findById(id);
+      const result = await Location.findById(id);
 
       if (result) return res.status(200).json({ body: result });
       return res.status(400).json({});

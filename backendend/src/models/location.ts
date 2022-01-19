@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const Microlocation = new mongoose.Schema({
+const Location = new mongoose.Schema({
   city: {
     type: String,
   },
@@ -10,7 +10,7 @@ const Microlocation = new mongoose.Schema({
   street: {
     type: String,
   },
-  locations: {
+  microlocations: {
     type: [
       {
         type: String,
@@ -20,4 +20,4 @@ const Microlocation = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Microlocation", Microlocation, "microlocations");
+export default mongoose.model("Microlocation", Location, "microlocations");
