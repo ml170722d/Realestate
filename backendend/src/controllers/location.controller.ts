@@ -63,7 +63,7 @@ export default class LocationController {
   }
 
   async get(req: express.Request, res: express.Response<IResponce>) {
-    const { id } = req.params;
+    const { id } = req.query;
     try {
       const result = await Location.findById(id);
 

@@ -20,4 +20,4 @@ const Location = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Microlocation", Location, "microlocations");
+export default mongoose.model("Location", Location, "locations");
