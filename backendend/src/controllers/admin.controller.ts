@@ -1,11 +1,9 @@
 import express from "express";
 import Logger from "js-logger";
-import IAgency from "../interface/agency.interface";
 import IResponce from "../interface/responce.interface";
 import IUser from "../interface/user.interface";
 import User from "../models/user";
 import UserController from "./user.controller";
-import Agency from "../models/agency";
 
 export default class AdminController {
   private static ERROR_MSG = "Check server log for more information";
@@ -56,7 +54,7 @@ export default class AdminController {
     }
   }
 
-  async deleteUser(req: express.Request, res: express.Response<IResponce>) {
+  async removeUser(req: express.Request, res: express.Response<IResponce>) {
     const { id, username } = req.body;
     const query: IUser = {
       id: id,
@@ -78,27 +76,5 @@ export default class AdminController {
 
   async addUser(req: express.Request, res: express.Response<IResponce>) {
     new UserController().register(req, res);
-  }
-
-  async addAgency(req: express.Request, res: express.Response<IResponce>) {
-    const data: IAgency = req.body;
-    const query: IAgency = {
-      adress: data.adress,
-      city: data.city,
-      name: data.name,
-      phone: data.phone,
-      pib: data.pib,
-    };
-
-    try {
-      const result = await Agency.insertMany(query);
-
-      if (result && result.length > 0)
-        return res.status(201).json({ body: result });
-      return res.status(400).json({});
-    } catch (error) {
-      Logger.error(`${error}`);
-      return res.status(400).json({ msg: AdminController.ERROR_MSG });
-    }
   }
 }
