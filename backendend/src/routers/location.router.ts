@@ -18,4 +18,8 @@ locRouter.route("").delete((req, res) => {
   new LocationController().remove(req, res);
 });
 
+locRouter.route("/avg").get((req, res) => {
+  new PostController().avragePricePerM2(req, res);
+});
+
 export { locRouter };
