@@ -7,6 +7,7 @@ import { userRouter } from "./routers/user.router";
 import { fileRouter, publicRouter } from "./routers/file.router";
 import { adminRouter } from "./routers/admin.router";
 import { postRouter } from "./routers/post.router";
+import { advertiserRouter } from "./routers/advertiser.router";
 
 dotenv.config();
 Logger.useDefaults({
@@ -24,6 +25,7 @@ router.use(userRouter);
 router.use(fileRouter);
 router.use(adminRouter);
 router.use(postRouter);
+router.use(advertiserRouter);
 
 const port = process.env.PORT;
 
