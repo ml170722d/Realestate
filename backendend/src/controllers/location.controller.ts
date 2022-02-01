@@ -3,6 +3,8 @@ import Location from "../models/location";
 import ILocation from "../interface/location.interface";
 import IResponce from "../interface/responce.interface";
 import Logger from "js-logger";
+import Post from "../models/post";
+import IPost from "../interface/post.interface";
 
 export default class LocationController {
   async add(req: express.Request, res: express.Response<IResponce>) {
@@ -33,12 +35,22 @@ export default class LocationController {
     }
   }
 
-  // FIX Can't delete microlocation if its used in at leat one post
   async remove(req: express.Request, res: express.Response<IResponce>) {
     const data: ILocation = req.body;
 
+    const query: IPost = {
+      location: data.id,
+    };
+
     try {
-      const result = await Location.findByIdAndDelete(data.id);
+      let result = await Post.findOne(query);
+
+      if (result)
+        return res.status(400).json({
+          msg: "Selected microlocation is used in one ore more posts",
+        });
+
+      result = await Location.findByIdAndDelete(data.id);
 
       if (result) return res.status(200).json({ body: result });
       return res
