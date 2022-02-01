@@ -11,7 +11,7 @@ subPostRouter.route("").get((req, res) => {
   new PostController().all(req, res);
 });
 
-subPostRouter.route("/:id").get((req, res) => {
+subPostRouter.route("/id/:id").get((req, res) => {
   new PostController().get(req, res);
 });
 
@@ -21,6 +21,10 @@ subPostRouter.route("").patch((req, res) => {
 
 subPostRouter.route("/sold").patch((req, res) => {
   new PostController().markAsSold(req, res);
+});
+
+subPostRouter.route("/latest").get((req, res) => {
+  new PostController().getLatest(req, res);
 });
 
 const postRouter = Router();

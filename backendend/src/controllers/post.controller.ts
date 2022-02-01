@@ -1,5 +1,6 @@
 import express from "express";
 import Logger from "js-logger";
+import mongoose from "mongoose";
 import IPost from "../interface/post.interface";
 import IResponce from "../interface/responce.interface";
 import Post from "../models/post";
@@ -134,16 +135,14 @@ export default class PostController {
     res: express.Response<IResponce>
   ) {
     const { id } = req.query;
-    const query: IPost = {
-      location: <string>id,
-    };
-    const filter: IPost = {
-      price: 1,
-      area: 1,
-    };
 
     try {
       const result = await Post.aggregate([
+        {
+          $match: {
+            location: new mongoose.Types.ObjectId(<string>id),
+          },
+        },
         {
           $group: {
             _id: "$location",
@@ -167,6 +166,19 @@ export default class PostController {
           },
         });
       return res.status(400).json({});
+    } catch (error) {
+      Logger.error(`${error}`);
+      return res.status(500).json({});
+    }
+  }
+
+  async getLatest(req: express.Request, res: express.Response<IResponce>) {
+    try {
+      const { n } = req.query;
+      const result = await Post.find()
+        .sort({ published: "desc" })
+        .limit(Number(n));
+      return res.status(200).json({ body: result });
     } catch (error) {
       Logger.error(`${error}`);
       return res.status(500).json({});
