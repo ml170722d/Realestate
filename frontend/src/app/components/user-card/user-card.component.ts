@@ -18,9 +18,12 @@ export class UserCardComponent implements OnInit {
   @Output() event = new EventEmitter();
 
   deleteUser() {
+    const id = String(this.user._id);
+    if (this.isSelfdestruct(id)) return;
+
     this.adminService
       .deleteUser({
-        id: String(this.user._id),
+        id: id,
         username: String(this.user.username),
       })
       .subscribe(() => {
@@ -29,10 +32,13 @@ export class UserCardComponent implements OnInit {
   }
 
   grandAccess() {
+    const id = String(this.user._id);
+    if (this.isSelfdestruct(id)) return;
+
     this.adminService
       .grantAcess({
         username: String(this.user.username),
-        id: String(this.user._id),
+        id: id,
       })
       .subscribe((data) => {
         this.event.emit();
@@ -40,13 +46,25 @@ export class UserCardComponent implements OnInit {
   }
 
   denyAccess() {
+    const id = String(this.user._id);
+    if (this.isSelfdestruct(id)) return;
+
     this.adminService
       .denyAcess({
         username: String(this.user.username),
-        id: String(this.user._id),
+        id: id,
       })
       .subscribe((data) => {
         this.event.emit();
       });
+  }
+
+  private isSelfdestruct(id: string) {
+    const { _id } = JSON.parse(sessionStorage.getItem('user')!);
+    if (_id === id) {
+      alert('You are not allowed to do this');
+      return true;
+    }
+    return false;
   }
 }
