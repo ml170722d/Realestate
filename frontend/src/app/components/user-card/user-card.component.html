@@ -1,0 +1,16 @@
+<div>
+  <h4>User: {{ user.name }} {{ user.surname }}</h4>
+  <h4>Username: {{ user.username }}</h4>
+  <h4>Access: {{ user.access }}</h4>
+  <h4>Mail: {{ user.email }}</h4>
+  <h4>Contact: {{ user.phone }}</h4>
+
+  <button (click)="deleteUser()">Delete user</button>
+  <br />
+  <div *ngIf="user.access; else ga">
+    <button (click)="denyAccess()">Deny Access</button>
+  </div>
+  <ng-template #ga>
+    <button (click)="grandAccess()">Grant Access</button>
+  </ng-template>
+</div>
