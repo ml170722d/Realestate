@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.userServie.login(this.user as any).subscribe(
-      (u: IUser) => {
+      (u: IResponce) => {
         if (u) {
-          sessionStorage.setItem('user', JSON.stringify(u));
-          switch (u.type) {
+          sessionStorage.setItem('user', JSON.stringify(u.body));
+          switch (u.body.type) {
             case 0:
               this.router.navigate(['/admin']);
               break;
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (err) => {
-        this.msg = String(err);
+        this.msg = err.error.msg;
       }
     );
   }
