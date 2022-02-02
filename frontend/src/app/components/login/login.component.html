@@ -1,0 +1,30 @@
+<div>
+  <h1>Login</h1>
+  <table>
+    <tr>
+      <td>Username:</td>
+      <td><input type="text" name="username" [(ngModel)]="user.username" /></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td>
+        <input type="password" name="lozinka" [(ngModel)]="user.password" />
+      </td>
+    </tr>
+    <tr>
+      <td><button (click)="login()">Login</button></td>
+    </tr>
+  </table>
+
+  <div *ngIf="msg">Error message: {{ msg }}</div>
+
+  <hr />
+
+  <div>
+    <h3>Latest advertisements:</h3>
+    <div *ngFor="let post of latest">
+      <h4>{{ post.title }}</h4>
+      <p>{{ post.about }}</p>
+    </div>
+  </div>
+</div>
