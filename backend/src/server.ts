@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import Logger from "js-logger";
 import DB from "./util/DB";
 import Host from "./util/host";
@@ -19,6 +20,7 @@ Logger.useDefaults({
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const router = express.Router();
 router.use(userRouter);
