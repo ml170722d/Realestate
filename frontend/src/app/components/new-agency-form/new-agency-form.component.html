@@ -1,0 +1,16 @@
+<div>
+  <h2>Add location</h2>
+  <div>
+    <input [(ngModel)]="agency.address" required placeholder="Address" /> <br />
+    <input [(ngModel)]="agency.city" required placeholder="City" /> <br />
+    <input [(ngModel)]="agency.name" required placeholder="Agency name" />
+    <br />
+    <input [(ngModel)]="agency.phone" required placeholder="Contact" /> <br />
+    <input [(ngModel)]="agency.pib" required placeholder="PIB" /> <br />
+    <button (click)="newAgency()">Add</button>
+  </div>
+  <hr />
+  <div *ngIf="msg">
+    {{ msg }}
+  </div>
+</div>
