@@ -1,0 +1,12 @@
+<div>
+  <h2>Change password</h2>
+  <div>
+    <input [(ngModel)]="pass" required placeholder="Password" /> <br />
+    <input [(ngModel)]="repPass" required placeholder="Repeat password" />
+    <br />
+    <button (click)="change()">Submit</button>
+  </div>
+  <div *ngIf="msg">
+    {{ msg }}
+  </div>
+</div>
