@@ -1,0 +1,76 @@
+<div>
+  <div>
+    <div>
+      <input required type="text" [(ngModel)]="data.name" placeholder="Name" />
+      <br />
+      <input
+        required
+        type="text"
+        [(ngModel)]="data.surname"
+        placeholder="Surname"
+      />
+      <br />
+      <input
+        required
+        type="text"
+        [(ngModel)]="data.username"
+        placeholder="Username"
+      />
+      <br />
+      <input
+        required
+        type="password"
+        [(ngModel)]="data.password"
+        placeholder="Password"
+      />
+      <br />
+      <input
+        required
+        type="password"
+        [(ngModel)]="repeatPass"
+        placeholder="Repeat password"
+      />
+      <br />
+      <input
+        required
+        type="text"
+        [(ngModel)]="data.email"
+        placeholder="Email"
+      />
+      <br />
+      <input
+        required
+        type="text"
+        [(ngModel)]="data.phone"
+        placeholder="Phone"
+      />
+      <br />
+      <input
+        required
+        type="date"
+        [(ngModel)]="data.birthday"
+        placeholder="Birthday"
+      />
+      <br />
+      <input
+        required
+        type="text"
+        [(ngModel)]="data.city"
+        placeholder="City"
+      /><br />
+      <select [(ngModel)]="data.type">
+        <option value="2" selected>Buyer</option>
+        <option value="1">Advertiser</option>
+        <option value="0">Admin</option>
+      </select>
+      <br />
+      <button (click)="submit()">Submit</button>
+    </div>
+    <div *ngIf="msg">
+      {{ msg }}
+    </div>
+  </div>
+  <div *ngIf="msg">
+    {{ msg }}
+  </div>
+</div>
