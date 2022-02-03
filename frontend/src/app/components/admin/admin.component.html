@@ -1,0 +1,30 @@
+<div>
+  <app-user-welcome [user]="user"></app-user-welcome>
+
+  <hr />
+  <div>
+    <h2>Users</h2>
+    <ul>
+      <li *ngFor="let u of users">
+        <app-user-card [user]="u" (event)="updateUsers()"></app-user-card>
+      </li>
+    </ul>
+  </div>
+  <hr />
+  <div>
+    <h2>Add user</h2>
+    <app-register></app-register>
+  </div>
+  <hr />
+  <div>
+    <app-new-agency-form></app-new-agency-form>
+  </div>
+  <hr />
+  <div>
+    <app-new-location-form></app-new-location-form>
+  </div>
+  <hr />
+  <app-change-pass [data]="sendData()"></app-change-pass>
+  <hr />
+  <app-logout></app-logout>
+</div>
