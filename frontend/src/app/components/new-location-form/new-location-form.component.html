@@ -1,0 +1,20 @@
+<div>
+  <h2>Add agency</h2>
+  <div>
+    <input type="text" [(ngModel)]="loc.city" required placeholder="City" />
+    <br />
+    <input
+      type="text"
+      [(ngModel)]="loc.municipality"
+      required
+      placeholder="Municipality"
+    />
+    <br />
+    <input type="text" [(ngModel)]="loc.street" required placeholder="Street" />
+    <br />
+    <button (click)="addLoc()">Add</button>
+  </div>
+  <div *ngIf="msg">
+    {{ msg }}
+  </div>
+</div>
