@@ -15,6 +15,8 @@ export class RegisterComponent implements OnInit {
 
   msg: string = '';
 
+  
+
   submit() {
     if (this.data.password != this.repeatPass) {
       this.msg = 'Passwords not maching';

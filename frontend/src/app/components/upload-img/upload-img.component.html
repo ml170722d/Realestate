@@ -1,0 +1,16 @@
+<div>
+  <input type="file" #fileInput (change)="uploadFile(fileInput)" />
+
+  <div *ngIf="selectedFile">
+    <div
+      [ngStyle]="{ 'background-image': 'url(' + selectedFile.src + ')' }"
+    ></div>
+
+    <div *ngIf="selectedFile.pending">
+      <div></div>
+    </div>
+
+    <div *ngIf="selectedFile.status === 'ok'">Image Uploaded Succesfuly!</div>
+    <div *ngIf="selectedFile.status === 'fail'">Image Upload Failed!</div>
+  </div>
+</div>

@@ -11,4 +11,8 @@ export class FileService {
   uploadUserProfileImg(data: { id: string; avatar: File }) {
     return this.http.patch(`${Util.uri}/avatar/upload`, data);
   }
+
+  uploadFile(url: string, data: { id: string; avatar: File }) {
+    return this.http.patch(url, data);
+  }
 }

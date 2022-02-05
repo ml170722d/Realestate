@@ -1,0 +1,8 @@
+<div>
+  <button (click)="toggle()">Show/Hide user list</button>
+  <ul [hidden]="hide">
+    <li *ngFor="let u of users">
+      <app-user-card [user]="u"></app-user-card>
+    </li>
+  </ul>
+</div>

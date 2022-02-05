@@ -1,0 +1,13 @@
+<div>
+  <div [ngSwitch]="user.type">
+    <div>
+      <app-welcome [user]="user"></app-welcome><br />
+      <button (click)="details()">Details</button><br />
+      <div *ngSwitchCase="0"><app-admin></app-admin><br /></div>
+      <div *ngSwitchCase="1"><app-advertiser></app-advertiser><br /></div>
+      <div *ngSwitchCase="2"><app-buyer></app-buyer><br /></div>
+      <app-logout></app-logout>
+    </div>
+    <div *ngSwitchDefault><h1>There was an error!</h1></div>
+  </div>
+</div>

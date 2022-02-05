@@ -4,6 +4,7 @@
   <h4>Access: {{ user.access }}</h4>
   <h4>Mail: {{ user.email }}</h4>
   <h4>Contact: {{ user.phone }}</h4>
+  <img [src]="user.imgUrl" style="width: 100px; height: 100px" /> <br />
 
   <button (click)="deleteUser()">Delete user</button>
   <br />

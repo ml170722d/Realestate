@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './components/admin/admin.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegiterPageComponent } from './components/regiter-page/regiter-page.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   {
@@ -13,8 +14,12 @@ const routes: Routes = [
     redirectTo: '',
   },
   {
-    path: 'admin',
-    component: AdminComponent,
+    path: 'user',
+    component: UserComponent,
+  },
+  {
+    path: 'register',
+    component: RegiterPageComponent,
   },
 ];
 

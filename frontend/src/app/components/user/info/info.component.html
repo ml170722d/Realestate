@@ -1,0 +1,12 @@
+<div>
+  <img [src]="user.imgUrl" style="height: 100px; width: 100px" />
+  <button (click)="close()">X</button>
+  <p>Name: {{ user.name }}</p>
+  <p>Surname: {{ user.surname }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>Contact: {{ user.phone }}</p>
+  <p>City: {{ user.city }}</p>
+  <p>Birthday: {{ user.birthday }}</p>
+  <p *ngIf="user.agency">Agency: {{ user.agency }}</p>
+  <p *ngIf="user.licence">Licence: {{ user.licence }}</p>
+</div>

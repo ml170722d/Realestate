@@ -37,19 +37,7 @@ export class LoginComponent implements OnInit {
       (u: IResponce) => {
         if (u) {
           sessionStorage.setItem('user', JSON.stringify(u.body));
-          switch (u.body.type) {
-            case 0:
-              this.router.navigate(['/admin']);
-              break;
-            case 1:
-              this.router.navigate(['/advertiser']);
-              break;
-            case 2:
-              this.router.navigate(['/buyer']);
-              break;
-            default:
-              break;
-          }
+          this.router.navigate(['user']);
         }
       },
       (err) => {
