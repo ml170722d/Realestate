@@ -1,6 +1,6 @@
-import Location from "./location";
-import Model from "./model";
-import User from "./user";
+import Location from "./location.model";
+import Model from "./model.model";
+import User from "./user.model";
 
 export enum Characteristics {
   TERRACE = "Terrace",

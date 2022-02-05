@@ -1,4 +1,4 @@
-import Model from "./model";
+import Model from "./model.model";
 
 export default class Agency extends Model {
   pib?: number;

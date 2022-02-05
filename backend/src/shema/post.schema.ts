@@ -1,8 +1,8 @@
 import Logger from "js-logger";
 import mongoose from "mongoose";
-import Location from "../model/location";
-import IPost from "../model/post";
-import LocationShema from "./location";
+import Location from "../model/location.model";
+import IPost from "../model/post.model";
+import LocationShema from "./location.schema";
 
 const Post = new mongoose.Schema({
   title: {

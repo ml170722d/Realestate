@@ -22,7 +22,8 @@ const router = express.Router();
 
 const port = process.env.PORT;
 
-app.use("/", router);
+app.use("/api", router);
+
 const server = app.listen(port, async () => {
   try {
     Logger.info(`Express has started working on ${Host.getHostUrl()}`);

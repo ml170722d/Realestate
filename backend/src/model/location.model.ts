@@ -1,4 +1,4 @@
-import Model from "./model";
+import Model from "./model.model";
 
 export default class Location extends Model {
   city?: string;
