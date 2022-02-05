@@ -1,8 +1,8 @@
 import Logger from "js-logger";
 import mongoose from "mongoose";
-import ILocation from "../interface/location.interface";
-import IPost from "../interface/post.interface";
-import Location from "./location";
+import Location from "../model/location";
+import IPost from "../model/post";
+import LocationShema from "./location";
 
 const Post = new mongoose.Schema({
   title: {
@@ -122,11 +122,12 @@ const Post = new mongoose.Schema({
 Post.post("insertMany", async (docs: Array<IPost>) => {
   docs.forEach(async (doc, index, array) => {
     const { microlocation, location } = doc;
-    const update: ILocation = {
-      microlocations: [microlocation!.toString()],
-    };
+
+    const update: Location = new Location();
+    update.microlocations = [microlocation!];
+
     try {
-      const result = await Location.findByIdAndUpdate(
+      const result = await LocationShema.findByIdAndUpdate(
         location,
         { $addToSet: update },
         { new: true }
