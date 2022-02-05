@@ -112,4 +112,18 @@ export default class UserController {
       return res.status(400).json({});
     }
   }
+
+  async update(req: express.Request, res: express.Response<IResponce>) {
+    const data: IUser = req.body;
+    try {
+      const result = await User.findByIdAndUpdate(data.id, data, {
+        upsert: true,
+      });
+
+      return res.status(200).json({ body: result });
+    } catch (error) {
+      Logger.error(`${error}`);
+      return res.status(500).json({});
+    }
+  }
 }
