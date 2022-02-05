@@ -5,6 +5,7 @@ import cors from "cors";
 
 import DB from "./util/DB";
 import Host from "./util/host";
+import { serverRouter } from "./router/server.router";
 
 dotenv.config();
 Logger.useDefaults({
@@ -18,11 +19,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const router = express.Router();
-
 const port = process.env.PORT;
 
-app.use("/api", router);
+app.use("/api", serverRouter);
 
 const server = app.listen(port, async () => {
   try {
