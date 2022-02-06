@@ -54,7 +54,7 @@ export default interface IPost extends IModel {
 }
 
 export interface IPostFilter {
-  type: REType;
+  type?: REType;
   location?: String;
   priceTo?: Number;
   areaFrom?: Number;

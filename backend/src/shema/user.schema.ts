@@ -62,8 +62,8 @@ const User = new mongoose.Schema(
     type: {
       /**
        * 0 -> admin
-       * 1 -> buyer
-       * 2 -> advertiser
+       * 1 -> advertiser
+       * 2 -> buyer
        */
       type: Number,
       required: true,
