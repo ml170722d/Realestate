@@ -10,5 +10,3 @@ fileRouter.route("/user").patch(upload.single("pic"), fc.uploadAvatar);
 fileRouter.route("/post").patch(upload.array("pics", 6), fc.uploadPostPic);
 
 export { fileRouter };
-
-// FIX server doesn't serve img for posts as it should (example: jpg), but svg file is provided

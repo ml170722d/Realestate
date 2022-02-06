@@ -8,7 +8,6 @@ import userSchema from "../shema/user.schema";
 import IPost from "../interface/post.interface";
 import crypto from "crypto";
 import postSchema from "../shema/post.schema";
-import internal from "stream";
 
 const disk = multer.diskStorage({
   destination: (req, file, next) => {
@@ -22,13 +21,13 @@ const disk = multer.diskStorage({
         return next(new Error("Unknown route"), "");
     }
   },
-  filename: async (req, file, next) => {
+  filename: (req, file, next) => {
     const route = req.url.split("/");
     switch (route[route.length - 1]) {
       case "user":
         return userPic(req, file, next);
       case "post":
-        return await postPisc(req, file, next);
+        return postPisc(req, file, next);
       default:
         return next(new Error("Unknown route"), "");
     }
@@ -59,23 +58,12 @@ async function postPisc(
   const extension = splited[splited.length - 1] || null;
   if (!post.id || !extension) callback(new Error("Invalid parameters!"), "");
 
-  const data = await streamToString(file.stream);
+  const data = JSON.stringify(file);
+
   const hash = crypto.createHash("sha256").update(data).digest("hex");
 
   const filename = post.id + "_" + hash + "." + extension;
   return callback(null, filename);
-}
-
-async function streamToString(stream: internal.Readable) {
-  const chunks: any[] = [];
-  return new Promise<string>((res, rej) => {
-    stream.on("data", (chunk) => {
-      chunks.push(chunk);
-    });
-    stream.on("end", () => {
-      res(Buffer.concat(chunks).toString());
-    });
-  });
 }
 
 const upload = multer({ storage: disk });
