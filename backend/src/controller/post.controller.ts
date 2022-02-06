@@ -17,7 +17,7 @@ export default class PostController {
         promise = postSchema.find();
       }
 
-      const result = await promise.populate("advertiser");
+      const result = await promise.populate("advertiser").populate("location");
 
       return res.status(200).json({ body: result });
     } catch (error) {
@@ -198,7 +198,10 @@ export default class PostController {
       if (!data.minRooms) delete query.rooms;
       if (!data.priceTo) delete query.price;
 
-      const result = await postSchema.find(query).populate("advertiser");
+      const result = await postSchema
+        .find(query)
+        .populate("advertiser")
+        .populate("location");
 
       return res.status(200).json({
         body: result,
