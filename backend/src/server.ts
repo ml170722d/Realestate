@@ -6,6 +6,7 @@ import cors from "cors";
 import DB from "./util/DB";
 import Host from "./util/host";
 import { serverRouter } from "./router/server.router";
+import { publicRouter } from "./router/public.router";
 
 dotenv.config();
 Logger.useDefaults({
@@ -21,6 +22,7 @@ app.use(cors());
 
 const port = process.env.PORT;
 
+app.use(publicRouter);
 app.use("/api", serverRouter);
 
 const server = app.listen(port, async () => {
