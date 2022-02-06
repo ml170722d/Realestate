@@ -11,10 +11,12 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
-    "mongoose": "^6.1.4"
+    "mongoose": "^6.1.4",
+    "multer": "^1.4.4"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/multer": "^1.4.7",
     "@types/node": "^17.0.5",
     "js-logger": "^1.6.1",
     "nodemon": "^2.0.15",
