@@ -1,4 +1,5 @@
 import { Router } from "express";
+import AdminController from "../controller/admin.controller";
 import UserContorller from "../controller/user.controller";
 
 const userRouter = Router();
@@ -18,5 +19,11 @@ userRouter.route("/change").patch(uc.changePass);
 userRouter.route("/login").post(uc.login);
 
 userRouter.route("/logout").delete(uc.logout);
+
+const ac = new AdminController();
+
+userRouter.route("/grant").patch(ac.grant);
+
+userRouter.route("/deny").patch(ac.deny);
 
 export { userRouter };
