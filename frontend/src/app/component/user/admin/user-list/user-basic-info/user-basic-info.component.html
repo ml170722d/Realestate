@@ -1,0 +1,15 @@
+<div>
+  <img [src]="user.imgUrl" alt="User profile picture" class="imgSie" />
+  <p>Username: {{ user.username }}</p>
+  <p>Name: {{ user.name }}</p>
+  <p>Surname: {{ user.surname }}</p>
+  <p>Access: {{ user.access }}</p>
+
+  <button (click)="remove()">Delete</button>
+  <div *ngIf="user.access; else grantAccess">
+    <button (click)="deny()">Deny access</button>
+  </div>
+  <ng-template #grantAccess>
+    <button (click)="grant()">Grant access</button>
+  </ng-template>
+</div>

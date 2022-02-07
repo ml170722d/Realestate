@@ -1,0 +1,11 @@
+<div>
+  <div [hidden]="hide">
+    <div *ngFor="let u of users">
+      <app-user-basic-info [user]="u" (e)="updateList()"></app-user-basic-info>
+    </div>
+  </div>
+  <button (click)="toggle()">
+    <p *ngIf="hide; else hideList">Show user list</p>
+    <ng-template #hideList>Hide user list</ng-template>
+  </button>
+</div>
