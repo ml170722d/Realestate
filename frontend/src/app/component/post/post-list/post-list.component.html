@@ -1,0 +1,12 @@
+<div>
+  <button (click)="toggle()">
+    <p *ngIf="hide; else hideList">Show agency list</p>
+    <ng-template #hideList>Hide agency list</ng-template>
+  </button>
+
+  <div [hidden]="hide">
+    <div *ngFor="let p of posts">
+      <app-post-basic-info [post]="p"></app-post-basic-info>
+    </div>
+  </div>
+</div>
