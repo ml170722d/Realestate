@@ -33,7 +33,8 @@ export default class PostController {
       const result = await postSchema
         .find()
         .sort({ published: "desc" })
-        .limit(Number(n));
+        .limit(Number(n))
+        .populate("location");
 
       return res.status(200).json({ body: result });
     } catch (error) {
