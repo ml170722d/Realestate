@@ -1,5 +1,5 @@
 export default class Model {
-  _id?: string = undefined;
+  private _id?: string;
 
   get id() {
     return this._id;
