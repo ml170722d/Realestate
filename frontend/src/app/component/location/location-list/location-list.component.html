@@ -1,0 +1,12 @@
+<div>
+  <button (click)="toggle()">
+    <p *ngIf="hide; else hideList">Show</p>
+    <ng-template #hideList>Hide</ng-template>
+  </button>
+  <br />
+  <div [hidden]="hide">
+    <div *ngFor="let l of locs">
+      <app-location-basic-info [loc]="l"></app-location-basic-info>
+    </div>
+  </div>
+</div>
