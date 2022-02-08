@@ -10,8 +10,10 @@ import Location from 'src/model/location.model';
 export class PostBasicInfoComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loc = new Location(this.post.location);
+  }
 
   @Input() post: Post = new Post({});
-  loc: Location = new Location(this.post.location);
+  loc: Location = new Location({});
 }

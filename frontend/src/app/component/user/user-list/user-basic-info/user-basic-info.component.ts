@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import Logger from 'js-logger';
-import { userInfo } from 'os';
 import { AdminService } from 'src/app/service/admin.service';
 import { UserService } from 'src/app/service/user.service';
 import User from 'src/model/user.model';
@@ -23,21 +22,21 @@ export class UserBasicInfoComponent implements OnInit {
   }
 
   remove() {
-    this.us.delete(this.user.id!).subscribe(
+    this.us.delete(this.user._id!).subscribe(
       (d) => this.onSuccess(d),
       (e) => this.onFail(e)
     );
   }
 
   deny() {
-    this.as.deny({ id: this.user.id! }).subscribe(
+    this.as.deny({ id: this.user._id! }).subscribe(
       (d) => this.onSuccess(d),
       (e) => this.onFail(e)
     );
   }
 
   grant() {
-    this.as.grant({ id: this.user.id! }).subscribe(
+    this.as.grant({ id: this.user._id! }).subscribe(
       (d) => this.onSuccess(d),
       (e) => this.onFail(e)
     );
