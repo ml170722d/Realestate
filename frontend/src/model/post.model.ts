@@ -52,8 +52,9 @@ export default class Post extends Model {
   updated?: Date;
   sold?: boolean;
 
-  constructor(data: any) {
+  constructor(data?: any) {
     super(data);
+    if (!data) return;
     this.title = data.title;
     this.location = data.location;
     this.microlocation = data.microlocation;

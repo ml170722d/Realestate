@@ -16,8 +16,9 @@ export default class User extends Model {
   access?: boolean;
   favorite?: string[];
 
-  constructor(data: any) {
+  constructor(data?: any) {
     super(data);
+    if (!data) return;
     this.username = data.username;
     this.password = data.password;
     this.name = data.name;

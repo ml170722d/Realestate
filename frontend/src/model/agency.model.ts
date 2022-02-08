@@ -1,4 +1,4 @@
-import Model from "./model.model";
+import Model from './model.model';
 
 export default class Agency extends Model {
   pib?: number;
@@ -7,8 +7,9 @@ export default class Agency extends Model {
   address?: string;
   phone?: string;
 
-  constructor(data: any) {
+  constructor(data?: any) {
     super(data);
+    if (!data) return;
     this.pib = data.pib;
     this.address = data.address;
     this.city = data.city;

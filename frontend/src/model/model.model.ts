@@ -1,15 +1,8 @@
 export default class Model {
-  private _id?: string;
+  id?: string;
 
-  get id() {
-    return this._id;
-  }
-
-  set id(id: string | undefined) {
-    this._id = id;
-  }
-
-  constructor(data: any) {
-    this._id = data._id || data.id;
+  constructor(data?: any) {
+    if (!data) return;
+    this.id = data._id || data.id;
   }
 }
