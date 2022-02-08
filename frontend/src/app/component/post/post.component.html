@@ -1,0 +1,105 @@
+<div>
+  <table>
+    <tr>
+      <td>Title:</td>
+      <td>
+        <div>{{ post.title }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Type:</td>
+      <td>
+        <div>{{ post.type }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>About:</td>
+      <td>
+        <div>{{ post.about }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Area:</td>
+      <td>
+        <div>{{ post.area }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Price:</td>
+      <td>
+        <div>{{ post.price }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Characteristics:</td>
+      <td>
+        <div>{{ post.characteristics }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Construction year:</td>
+      <td>
+        <div>{{ post.constructionYear }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Floor:</td>
+      <td>
+        <div>{{ post.floor }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Heating:</td>
+      <td>
+        <div>{{ post.heating }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Location:</td>
+      <td>
+        <div>{{ post.location }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Microlocation:</td>
+      <td>
+        <div>{{ post.microlocation }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Monthly utilities:</td>
+      <td>
+        <div>{{ post.monthlyUtilities }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Parking:</td>
+      <td>
+        <div>{{ post.parking }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Rooms:</td>
+      <td>
+        <div>{{ post.rooms }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Total floors:</td>
+      <td>
+        <div>{{ post.totalFloors }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Published:</td>
+      <td>
+        <div>{{ post.published }}</div>
+      </td>
+    </tr>
+    <tr *ngFor="let item of post.pics">
+      <td colspan="2">
+        <img [src]="item" />
+      </td>
+    </tr>
+  </table>
+</div>
