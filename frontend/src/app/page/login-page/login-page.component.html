@@ -1,0 +1,10 @@
+<div>
+  <app-login (e)="catchEvent($event)"></app-login>
+
+  <div *ngIf="evet">
+    {{ evet }}
+  </div>
+
+  <h3>Latest posts</h3>
+  <app-post-list [n]="5"></app-post-list>
+</div>
