@@ -1,8 +1,8 @@
 export default class Model {
-  id?: string;
+  _id?: string;
 
   constructor(data?: any) {
     if (!data) return;
-    this.id = data._id || data.id;
+    this._id = data._id || data.id;
   }
 }
