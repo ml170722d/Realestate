@@ -1,0 +1,13 @@
+<div>
+  <div>
+    <button>
+      <div *ngIf="hide; else hideBtn">Show list</div>
+      <ng-template #hideBtn>Hide list</ng-template>
+    </button>
+  </div>
+  <div [hidden]="hide">
+    <div *ngFor="let i of agencies">
+      <app-agency [agency]="i" (e)="updateList()"></app-agency>
+    </div>
+  </div>
+</div>
