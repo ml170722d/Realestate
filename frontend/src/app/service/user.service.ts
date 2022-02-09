@@ -43,6 +43,7 @@ export class UserService {
   }
 
   update(data: {
+    id: string;
     username: string;
     name: string;
     surname: string;
@@ -52,7 +53,7 @@ export class UserService {
     birthday: string;
     agency: string;
     licence: string;
-    favorite: string;
+    favorite: string[];
   }) {
     return this.http.patch(`${this.base_endpoint}/update`, data);
   }
