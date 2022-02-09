@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 import Responce from 'src/model/responce.model';
@@ -15,6 +15,7 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit(): void {}
 
   msg: string = '';
+  @Output() e = new EventEmitter();
 
   submit() {
     if (this.data.password != this.repeatPass) {
@@ -48,7 +49,7 @@ export class RegisterFormComponent implements OnInit {
       })
       .subscribe(
         (res: Responce) => {
-          alert(res.msg);
+          this.e.emit(res.msg);
         },
         (err) => {
           console.debug(err);
