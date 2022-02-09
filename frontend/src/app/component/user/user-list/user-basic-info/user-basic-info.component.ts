@@ -22,6 +22,8 @@ export class UserBasicInfoComponent implements OnInit {
   }
 
   remove() {
+    if (!this.check()) return;
+
     this.us.delete(this.user._id!).subscribe(
       (d) => this.onSuccess(d),
       (e) => this.onFail(e)
@@ -29,6 +31,8 @@ export class UserBasicInfoComponent implements OnInit {
   }
 
   deny() {
+    if (!this.check()) return;
+
     this.as.deny({ id: this.user._id! }).subscribe(
       (d) => this.onSuccess(d),
       (e) => this.onFail(e)
@@ -36,6 +40,8 @@ export class UserBasicInfoComponent implements OnInit {
   }
 
   grant() {
+    if (!this.check()) return;
+
     this.as.grant({ id: this.user._id! }).subscribe(
       (d) => this.onSuccess(d),
       (e) => this.onFail(e)
@@ -48,5 +54,15 @@ export class UserBasicInfoComponent implements OnInit {
 
   private onFail(error: any) {
     Logger.debug(error);
+  }
+
+  private check() {
+    let tmp: User = JSON.parse(sessionStorage.getItem('u')!);
+
+    if (this.user._id === tmp._id && this.user.type === 0) {
+      alert("You aren't allowed to edit yourself");
+      return false;
+    }
+    return true;
   }
 }

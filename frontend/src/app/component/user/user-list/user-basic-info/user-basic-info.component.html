@@ -1,15 +1,54 @@
 <div>
-  <img [src]="user.imgUrl" alt="User profile picture" class="imgSie" />
-  <p>Username: {{ user.username }}</p>
-  <p>Name: {{ user.name }}</p>
-  <p>Surname: {{ user.surname }}</p>
-  <p>Access: {{ user.access }}</p>
-
-  <button (click)="remove()">Delete</button>
-  <div *ngIf="user.access; else grantAccess">
-    <button (click)="deny()">Deny access</button>
-  </div>
-  <ng-template #grantAccess>
-    <button (click)="grant()">Grant access</button>
-  </ng-template>
+  <table>
+    <tr>
+      <td>
+        <p>Username:</p>
+      </td>
+      <td>
+        {{ user.username }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <img [src]="user.imgUrl" alt="User profile picture" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Name:</p>
+      </td>
+      <td>
+        {{ user.name }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Surname:</p>
+      </td>
+      <td>
+        {{ user.surname }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Access:</p>
+      </td>
+      <td>
+        {{ user.access }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button (click)="remove()">Delete</button>
+      </td>
+    </tr>
+    <tr>
+      <div *ngIf="user.access; else grantAccess">
+        <button (click)="deny()">Deny access</button>
+      </div>
+      <ng-template #grantAccess>
+        <button (click)="grant()">Grant access</button>
+      </ng-template>
+    </tr>
+  </table>
 </div>
