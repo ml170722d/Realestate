@@ -1,6 +1,6 @@
 <div>
   <div>
-    <button>
+    <button (click)="toggle()">
       <div *ngIf="hide; else hideBtn">Show list</div>
       <ng-template #hideBtn>Hide list</ng-template>
     </button>
