@@ -24,7 +24,7 @@ export class LocationService {
       city: string;
       municipality: string;
       street: string;
-      microlocations: string;
+      microlocations: string[];
     }
   ) {
     return this.http.post(`${this.base_endpoint}/${op}`, data);
