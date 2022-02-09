@@ -1,0 +1,39 @@
+<div>
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td>
+        <input type="text" [(ngModel)]="agency.name" required />
+      </td>
+    </tr>
+    <tr>
+      <td>PIB:</td>
+      <td>
+        <input type="text" [(ngModel)]="agency.pib" required />
+      </td>
+    </tr>
+    <tr>
+      <td>City:</td>
+      <td>
+        <input type="text" [(ngModel)]="agency.city" required />
+      </td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td>
+        <input type="text" [(ngModel)]="agency.address" required />
+      </td>
+    </tr>
+    <tr>
+      <td>Contact:</td>
+      <td>
+        <input type="text" [(ngModel)]="agency.phone" required />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button (click)="submit()">Submit</button>
+      </td>
+    </tr>
+  </table>
+</div>
