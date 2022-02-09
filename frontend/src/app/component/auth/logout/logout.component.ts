@@ -24,6 +24,7 @@ export class LogoutComponent implements OnInit {
   }
 
   private onSuccess(data: Responce) {
+    sessionStorage.clear();
     this.r.navigate(['']);
   }
 
