@@ -28,10 +28,21 @@ export class PostComponent implements OnInit {
 
   private onSuccess(data: Responce) {
     this.post = data.body;
-    console.log(this.post.location);
+    console.log(this.post);
   }
 
   private onFail(error: any) {
     Logger.debug(error);
+  }
+
+  showLocation = false;
+  showAdvertiser = false;
+
+  toggleLoc() {
+    this.showLocation = !this.showLocation;
+  }
+
+  toggleAdv() {
+    this.showAdvertiser = !this.showAdvertiser;
   }
 }

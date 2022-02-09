@@ -57,7 +57,7 @@
     <tr>
       <td>Location:</td>
       <td>
-        <div>{{ post.location }}</div>
+        <app-location [loc]="post.location"></app-location>
       </td>
     </tr>
     <tr>
@@ -94,6 +94,12 @@
       <td>Published:</td>
       <td>
         <div>{{ post.published }}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Advertiser:</td>
+      <td>
+        <div>{{ post.advertiser }}</div>
       </td>
     </tr>
     <tr *ngFor="let item of post.pics">
