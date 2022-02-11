@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { AgencyService } from 'src/app/service/agency.service';
 import { PostService } from 'src/app/service/post.service';
 import { UserService } from 'src/app/service/user.service';
@@ -42,6 +43,7 @@ export class ChangeDataComponent implements OnInit {
   convertedDate: string = '';
 
   submit() {
+    this.emitSubject();
     this.us
       .update({
         id: this.user._id!,
@@ -77,5 +79,11 @@ export class ChangeDataComponent implements OnInit {
         this.favList.push(d.body);
       });
     }
+  }
+
+  evSubject: Subject<void> = new Subject<void>();
+
+  emitSubject() {
+    this.evSubject.next();
   }
 }

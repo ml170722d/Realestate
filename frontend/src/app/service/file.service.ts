@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SERVER_URL } from 'src/util/url';
 
@@ -17,6 +17,20 @@ export class FileService {
       pics?: File[];
     }
   ) {
-    return this.http.patch(`${this.base_endpoint}/${target}`, data);
+    const form: FormData = new FormData();
+    form.append('id', data.id);
+    if (data.pic) form.append(target, data.pic);
+    if (data.pics) {
+      for (let i = 0; i < data.pics.length; i++) {
+        form.append(target, data.pics[i]);
+      }
+    }
+
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.patch(`${this.base_endpoint}/${target}`, form, {
+      headers: headers,
+    });
   }
 }

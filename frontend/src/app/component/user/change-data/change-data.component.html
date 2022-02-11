@@ -14,6 +14,9 @@
             placeholder="Name"
           />
         </td>
+        <td rowspan="4">
+          <img [src]="user.imgUrl" />
+        </td>
       </tr>
       <tr>
         <td>
@@ -150,6 +153,19 @@
               </td>
             </tr>
           </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Profile">Change profile piscure</label>
+        </td>
+        <td>
+          <app-file-form
+            [id]="user._id!"
+            [method]="'user'"
+            [single]="true"
+            [ev]="evSubject.asObservable()"
+          ></app-file-form>
         </td>
       </tr>
       <tr>
