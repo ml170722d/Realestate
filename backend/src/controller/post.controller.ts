@@ -175,7 +175,7 @@ export default class PostController {
 
       const result = await postSchema.insertMany(query);
 
-      return res.status(200).json({ body: query });
+      return res.status(200).json({ body: result });
     } catch (error) {
       Logger.error(error);
       return res.status(500).json({});
