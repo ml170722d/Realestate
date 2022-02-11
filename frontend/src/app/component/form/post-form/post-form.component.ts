@@ -56,8 +56,8 @@ export class PostFormComponent implements OnInit {
 
   createPost() {
     this.post.characteristics = this.charLst;
-    console.log(this.post);
-    console.log(this.charLst);
+    // console.log(this.post);
+    // console.log(this.charLst);
     this.ps
       .new({
         about: this.post.about!,

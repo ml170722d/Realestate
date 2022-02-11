@@ -32,8 +32,6 @@ export class FileFormComponent implements OnInit {
   }
 
   upload() {
-    console.log(this.id, this.method, this.single, this.data);
-
     if (this.data === undefined) return;
     if (this.method === 'user') {
       this.fs
