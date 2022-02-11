@@ -1,0 +1,45 @@
+<div>
+  <table>
+    <tr>
+      <td>Type:</td>
+      <td>
+        <select [(ngModel)]="filter.type">
+          <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Min area:</td>
+      <td>
+        <input type="text" [(ngModel)]="filter.areaFrom" />
+      </td>
+    </tr>
+    <tr>
+      <td>Min num. of rooms:</td>
+      <td>
+        <input type="text" [(ngModel)]="filter.minRooms" />
+      </td>
+    </tr>
+    <tr>
+      <td>Max price:</td>
+      <td>
+        <input type="text" [(ngModel)]="filter.priceTo" />
+      </td>
+    </tr>
+    <tr>
+      <td>Location:</td>
+      <td>
+        <select [(ngModel)]="filter.location">
+          <option *ngFor="let l of loc" [value]="l._id">
+            <app-location [loc]="l"></app-location>
+          </option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button (click)="search()">Search</button>
+      </td>
+    </tr>
+  </table>
+</div>
