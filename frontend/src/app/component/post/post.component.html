@@ -5,6 +5,9 @@
       <td>
         <div>{{ post.title }}</div>
       </td>
+      <td>
+        <app-fav-btn [postID]="post._id!"></app-fav-btn>
+      </td>
     </tr>
     <tr>
       <td>Type:</td>
@@ -57,7 +60,7 @@
     <tr>
       <td>Location:</td>
       <td>
-        <app-location [loc]="post.location"></app-location>
+        <app-location [loc]="post.location!"></app-location>
       </td>
     </tr>
     <tr>

@@ -28,7 +28,6 @@ export class PostComponent implements OnInit {
 
   private onSuccess(data: Responce) {
     this.post = data.body;
-    console.log(this.post);
   }
 
   private onFail(error: any) {

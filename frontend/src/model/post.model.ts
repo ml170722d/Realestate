@@ -79,7 +79,7 @@ export default class Post extends Model {
   }
 }
 
-export class IPostFilter {
+export class PostFilter {
   type?: REType;
   location?: string;
   priceTo?: number;
