@@ -74,12 +74,12 @@ export class PostService {
 
   search(data: {
     type: string;
-    areaFrom: string;
-    minRooms: string;
-    priceTo: string;
-    location: string;
+    areaFrom?: string;
+    minRooms?: string;
+    priceTo?: string;
+    location?: string;
   }) {
-    const query = this.base_endpoint + '/search';
+    let query = this.base_endpoint + '/search';
 
     if (
       data.areaFrom ||
@@ -88,13 +88,13 @@ export class PostService {
       data.priceTo ||
       data.type
     ) {
-      query.concat('?');
+      query = query.concat('?');
 
-      if (data.areaFrom) query.concat(`areaFrom=${data.areaFrom}&`);
-      if (data.location) query.concat(`location=${data.location}&`);
-      if (data.minRooms) query.concat(`minRooms=${data.minRooms}&`);
-      if (data.priceTo) query.concat(`priceTo=${data.priceTo}&`);
-      if (data.type) query.concat(`type=${data.type}&`);
+      if (data.areaFrom) query = query.concat(`areaFrom=${data.areaFrom}&`);
+      if (data.location) query = query.concat(`location=${data.location}&`);
+      if (data.minRooms) query = query.concat(`minRooms=${data.minRooms}&`);
+      if (data.priceTo) query = query.concat(`priceTo=${data.priceTo}&`);
+      if (data.type) query = query.concat(`type=${data.type}&`);
     }
 
     return this.http.get(query);
