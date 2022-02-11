@@ -4,6 +4,7 @@
       <app-welcome [name]="user.name!"></app-welcome>
       <hr />
       <div *ngSwitchCase="0"><app-admin></app-admin></div>
+      <div *ngSwitchCase="2"><app-buyer></app-buyer></div>
       <hr />
       <h3>Change password</h3>
       <app-change-pass [id]="user._id!"></app-change-pass>
