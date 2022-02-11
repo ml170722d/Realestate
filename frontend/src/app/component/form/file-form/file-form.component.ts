@@ -32,6 +32,8 @@ export class FileFormComponent implements OnInit {
   }
 
   upload() {
+    console.log(this.id, this.method, this.single, this.data);
+
     if (this.data === undefined) return;
     if (this.method === 'user') {
       this.fs
@@ -41,10 +43,15 @@ export class FileFormComponent implements OnInit {
     }
 
     if (this.method === 'post') {
+      const tmp: File[] = [];
+      for (let i = 0; i < 5; i++) {
+        tmp.push(this.data[i]);
+      }
+
       this.fs
         .upload('post', {
           id: this.id,
-          pics: this.data.subarray(0, 5),
+          pics: tmp,
         })
         .subscribe((d) => {});
       return;
