@@ -74,6 +74,7 @@ export default class FileController {
 
     const user: IUser = req.body;
     const path = req.file?.path.replace(/\\/g, "/");
+    if (!path) return res.status(400).json({});
     const update: IUser = {
       imgUrl: Host.getHostUrl() + "/" + path,
     };

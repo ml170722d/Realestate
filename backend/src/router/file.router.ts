@@ -5,8 +5,8 @@ const fileRouter = Router();
 
 const fc = new FileController();
 
-fileRouter.route("/user").patch(upload.single("pic"), fc.uploadAvatar);
+fileRouter.route("/user").patch(upload.single("user"), fc.uploadAvatar);
 
-fileRouter.route("/post").patch(upload.array("pics", 6), fc.uploadPostPic);
+fileRouter.route("/post").patch(upload.array("post", 6), fc.uploadPostPic);
 
 export { fileRouter };
