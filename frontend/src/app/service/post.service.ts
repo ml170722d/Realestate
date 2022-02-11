@@ -53,7 +53,7 @@ export class PostService {
   new(data: {
     about: string;
     advertiser: string;
-    characteristics: string;
+    characteristics: string[];
     area: string;
     constructionYear: string;
     floor: string;
@@ -61,7 +61,7 @@ export class PostService {
     location: string;
     microlocation: string;
     monthlyUtilities: string;
-    parking: string;
+    parking: boolean;
     price: string;
     rooms: string;
     state: string;
