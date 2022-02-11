@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import Location from 'src/model/location.model';
 
 @Component({
   selector: 'app-location',
@@ -8,7 +9,10 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LocationComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loc2 = new Location(this.loc);
+  }
 
-  @Input() loc: any;
+  @Input() loc: Location | string = new Location();
+  loc2: Location;
 }
