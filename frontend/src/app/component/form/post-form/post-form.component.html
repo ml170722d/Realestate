@@ -1,0 +1,138 @@
+<div>
+  <table *ngIf="!post._id">
+    <tr>
+      <td>Title:</td>
+      <td>
+        <input [(ngModel)]="post.title" type="text" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Type:</td>
+      <td>
+        <select [(ngModel)]="post.type">
+          <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>About:</td>
+      <td>
+        <input [(ngModel)]="post.about" type="text" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Area:</td>
+      <td>
+        <input [(ngModel)]="post.area" type="number" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Price:</td>
+      <td>
+        <input [(ngModel)]="post.price" type="number" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Characteristics:</td>
+      <td>
+        <ul>
+          <li *ngFor="let c of chars">
+            <input
+              type="checkbox"
+              [name]="c"
+              [value]="c"
+              (change)="onCheckboxChange($event, c)"
+            />
+            <label for="characteristics">{{ c }}</label>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>State:</td>
+      <td>
+        <input [(ngModel)]="post.state" type="text" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Construction year:</td>
+      <td>
+        <input [(ngModel)]="post.constructionYear" type="date" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Floor:</td>
+      <td>
+        <input [(ngModel)]="post.floor" type="number" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Heating:</td>
+      <td>
+        <input [(ngModel)]="post.heating" type="text" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Location:</td>
+      <td>
+        <select [(ngModel)]="post.location" (change)="getAvgForLoc()">
+          <option *ngFor="let l of locs" [value]="l._id">
+            <app-location [loc]="l"></app-location>
+          </option>
+        </select>
+      </td>
+      <td *ngIf="avg">Avrage value: {{ avg.avgPerM2 }}</td>
+    </tr>
+    <tr>
+      <td>Microlocation:</td>
+      <td>
+        <input [(ngModel)]="post.microlocation" type="text" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Monthly utilities:</td>
+      <td>
+        <input
+          [(ngModel)]="post.monthlyUtilities"
+          type="number"
+          placeholder=""
+        />
+      </td>
+    </tr>
+    <tr>
+      <td>Parking:</td>
+      <td>
+        <select [(ngModel)]="post.parking">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Rooms:</td>
+      <td>
+        <input [(ngModel)]="post.rooms" type="number" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td>Total floors:</td>
+      <td>
+        <input [(ngModel)]="post.totalFloors" type="number" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button (click)="createPost()">Create post</button>
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="post._id">
+    <app-file-form
+      [id]="post._id"
+      [single]="false"
+      [method]="'post'"
+      [ev]="subject.asObservable()"
+    ></app-file-form>
+    <button (click)="uploadPictures()">Upload pictures</button>
+  </div>
+</div>
