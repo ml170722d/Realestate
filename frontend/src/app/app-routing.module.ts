@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChangePostDataComponent } from './component/post/change-post-data/change-post-data.component';
 import { PostComponent } from './component/post/post.component';
 import { ChangeDataComponent } from './component/user/change-data/change-data.component';
 import { LoginPageComponent } from './page/login-page/login-page.component';
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'post/:id',
     component: PostComponent,
+  },
+  {
+    path: 'post/change/:id',
+    component: ChangePostDataComponent,
   },
 ];
 
