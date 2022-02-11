@@ -29,11 +29,15 @@ import { AgencyFormComponent } from './component/form/agency-form/agency-form.co
 import { LocationFormComponent } from './component/form/location-form/location-form.component';
 import { ChangePassComponent } from './component/auth/change-pass/change-pass.component';
 import { ChangeDataComponent } from './component/user/change-data/change-data.component';
-// import { AdvertiserComponent } from './component/user/advertiser/advertiser.component';
+import { AdvertiserComponent } from './component/user/advertiser/advertiser.component';
 import { BuyerComponent } from './component/user/buyer/buyer.component';
 import { SearchFormComponent } from './component/form/search-form/search-form.component';
 import { SearchListComponent } from './component/search-list/search-list.component';
 import { FavBtnComponent } from './component/fav-btn/fav-btn.component';
+import { PostFormComponent } from './component/form/post-form/post-form.component';
+import { FileFormComponent } from './component/form/file-form/file-form.component';
+import { ChangePostDataComponent } from './component/post/change-post-data/change-post-data.component';
+import { PostListOwnerComponent } from './component/post/post-list-owner/post-list-owner.component';
 
 @NgModule({
   declarations: [
@@ -62,11 +66,15 @@ import { FavBtnComponent } from './component/fav-btn/fav-btn.component';
     LocationFormComponent,
     ChangePassComponent,
     ChangeDataComponent,
-    // AdvertiserComponent,
+    AdvertiserComponent,
     BuyerComponent,
     SearchFormComponent,
     SearchListComponent,
     FavBtnComponent,
+    PostFormComponent,
+    FileFormComponent,
+    ChangePostDataComponent,
+    PostListOwnerComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
