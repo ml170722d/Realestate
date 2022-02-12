@@ -1,0 +1,25 @@
+<div>
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td>
+        {{ agency.name }}
+      </td>
+    </tr>
+    <tr>
+      <td>PIB:</td>
+      <td>
+        {{ agency.pib }}
+      </td>
+    </tr>
+    <tr>
+      <td>Contact:</td>
+      <td [hidden]="hideContact">
+        {{ agency.phone }}
+      </td>
+      <td>
+        <button (click)="toggleContact()">+</button>
+      </td>
+    </tr>
+  </table>
+</div>

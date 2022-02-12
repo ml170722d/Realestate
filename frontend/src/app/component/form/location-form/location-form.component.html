@@ -1,0 +1,27 @@
+<div>
+  <table>
+    <tr>
+      <td>City:</td>
+      <td>
+        <input type="text" [(ngModel)]="loc.city" />
+      </td>
+    </tr>
+    <tr>
+      <td>Municipality:</td>
+      <td>
+        <input type="text" [(ngModel)]="loc.municipality" />
+      </td>
+    </tr>
+    <tr>
+      <td>Street:</td>
+      <td>
+        <input type="text" [(ngModel)]="loc.street" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button (click)="submit()">Submit</button>
+      </td>
+    </tr>
+  </table>
+</div>
