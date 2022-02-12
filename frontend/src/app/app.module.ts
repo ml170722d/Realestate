@@ -38,6 +38,7 @@ import { PostFormComponent } from './component/form/post-form/post-form.componen
 import { FileFormComponent } from './component/form/file-form/file-form.component';
 import { ChangePostDataComponent } from './component/post/change-post-data/change-post-data.component';
 import { PostListOwnerComponent } from './component/post/post-list-owner/post-list-owner.component';
+import { JsonLoaderComponent } from './component/json-loader/json-loader.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { PostListOwnerComponent } from './component/post/post-list-owner/post-li
     FileFormComponent,
     ChangePostDataComponent,
     PostListOwnerComponent,
+    JsonLoaderComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
