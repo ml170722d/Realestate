@@ -1,0 +1,154 @@
+<div>
+  <div>
+    <table>
+      <tr>
+        <td>
+          <label for="Name">Name: </label>
+        </td>
+        <td>
+          <input
+            name="Name"
+            required
+            type="text"
+            [(ngModel)]="data.name"
+            placeholder="Name"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Surname">Surname: </label>
+        </td>
+        <td>
+          <input
+            name="Surname"
+            required
+            type="text"
+            [(ngModel)]="data.surname"
+            placeholder="Surname"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Username">Username: </label>
+        </td>
+        <td>
+          <input
+            name="Username"
+            required
+            type="text"
+            [(ngModel)]="data.username"
+            placeholder="Username"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Password">Password: </label>
+        </td>
+        <td>
+          <input
+            name="Password"
+            required
+            type="password"
+            [(ngModel)]="data.password"
+            placeholder="Password"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Repeat password">Repeat password: </label>
+        </td>
+        <td>
+          <input
+            name="Repeat password"
+            required
+            type="password"
+            [(ngModel)]="repeatPass"
+            placeholder="Repeat password"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Email">Email: </label>
+        </td>
+        <td>
+          <input
+            name="Email"
+            required
+            type="text"
+            [(ngModel)]="data.email"
+            placeholder="Email"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Phone">Phone: </label>
+        </td>
+        <td>
+          <input
+            name="Phone"
+            required
+            type="text"
+            [(ngModel)]="data.phone"
+            placeholder="Phone"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Birthday">Birthday: </label>
+        </td>
+        <td>
+          <input
+            name="Birthday"
+            required
+            type="date"
+            [(ngModel)]="data.birthday"
+            placeholder="Birthday"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="City">City: </label>
+        </td>
+        <td>
+          <input
+            name="City"
+            required
+            type="text"
+            [(ngModel)]="data.city"
+            placeholder="City"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Type">Type:</label>
+        </td>
+        <td>
+          <select [(ngModel)]="data.type" name="Type">
+            <option value="0">Admin</option>
+            <option value="1">Advertiser</option>
+            <option value="2">Buyer</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="2">
+          <button (click)="submit()">Submit</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <div *ngIf="msg">
+      {{ msg }}
+    </div>
+  </div>
+</div>

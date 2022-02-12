@@ -1,0 +1,39 @@
+<div>
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td>
+        {{ agency.name }}
+      </td>
+    </tr>
+    <tr>
+      <td>PIB:</td>
+      <td>
+        {{ agency.pib }}
+      </td>
+    </tr>
+    <tr>
+      <td>Contact:</td>
+      <td>
+        {{ agency.phone }}
+      </td>
+    </tr>
+    <tr>
+      <td>City:</td>
+      <td>
+        {{ agency.city }}
+      </td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td>
+        {{ agency.address }}
+      </td>
+    </tr>
+    <tr>
+      <td [colSpan]="2">
+        <button (click)="remove()">Delete</button>
+      </td>
+    </tr>
+  </table>
+</div>

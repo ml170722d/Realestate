@@ -1,0 +1,183 @@
+<div>
+  <div>
+    <table>
+      <tr>
+        <td>
+          <label for="Name">Name: </label>
+        </td>
+        <td>
+          <input
+            name="Name"
+            required
+            type="text"
+            [(ngModel)]="user.name"
+            placeholder="Name"
+          />
+        </td>
+        <td rowspan="4">
+          <img [src]="user.imgUrl" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Surname">Surname: </label>
+        </td>
+        <td>
+          <input
+            name="Surname"
+            required
+            type="text"
+            [(ngModel)]="user.surname"
+            placeholder="Surname"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Username">Username: </label>
+        </td>
+        <td>
+          <input
+            name="Username"
+            required
+            type="text"
+            [(ngModel)]="user.username"
+            placeholder="Username"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Email">Email: </label>
+        </td>
+        <td>
+          <input
+            name="Email"
+            required
+            type="text"
+            [(ngModel)]="user.email"
+            placeholder="Email"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Phone">Phone: </label>
+        </td>
+        <td>
+          <input
+            name="Phone"
+            required
+            type="text"
+            [(ngModel)]="user.phone"
+            placeholder="Phone"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Birthday">Birthday: </label>
+        </td>
+        <td>
+          <input
+            name="Birthday"
+            required
+            type="date"
+            [(ngModel)]="convertedDate"
+            placeholder="Birthday"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="City">City: </label>
+        </td>
+        <td>
+          <input
+            name="City"
+            required
+            type="text"
+            [(ngModel)]="user.city"
+            placeholder="City"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Type">Type:</label>
+        </td>
+        <td>
+          <select [(ngModel)]="user.type" name="Type">
+            <option value="0">Admin</option>
+            <option value="1">Advertiser</option>
+            <option value="2">Buyer</option>
+          </select>
+        </td>
+      </tr>
+      <tr *ngIf="user.type === 1">
+        <td>
+          <label for="Agency">Agency:</label>
+        </td>
+        <td>
+          <select name="Agency">
+            <option *ngFor="let a of agencies" [value]="a._id">
+              {{ a.name }} ({{ a.pib }})
+            </option>
+          </select>
+        </td>
+      </tr>
+      <tr *ngIf="user.type === 1">
+        <td>
+          <label for="Licence">Licence:</label>
+        </td>
+        <td>
+          <input
+            type="text"
+            [(ngModel)]="user.licence"
+            placeholder="licence number"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Favorite">Favorites:</label>
+        </td>
+        <td>
+          <table *ngFor="let f of favList">
+            <tr>
+              <td>
+                <app-post-basic-info [post]="f"></app-post-basic-info>
+              </td>
+              <td>
+                <button (click)="removeFav(f._id!)">-</button>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Profile">Change profile piscure</label>
+        </td>
+        <td>
+          <app-file-form
+            [id]="user._id!"
+            [method]="'user'"
+            [single]="true"
+            [ev]="evSubject.asObservable()"
+          ></app-file-form>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button (click)="submit()">Submit</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button routerLink="/user">Return</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

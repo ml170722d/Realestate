@@ -1,0 +1,39 @@
+<div>
+  <div>
+    <app-search-form (e)="setList($event)"></app-search-form>
+  </div>
+  <div *ngIf="list.length > 0">
+    <div>
+      <div>Page: {{ page + 1 }}</div>
+      <div>
+        <button (click)="prevPage()">Previous</button>
+        <button (click)="nextPage()">Next</button>
+      </div>
+      <div>
+        <input
+          type="number"
+          [value]="perPage"
+          [(ngModel)]="perPage"
+          (ngModelChange)="updateResultTable()"
+        />
+      </div>
+    </div>
+    <table>
+      <tr *ngFor="let p of resultTable">
+        <td>
+          <app-post-basic-info [post]="p"></app-post-basic-info>
+        </td>
+        <td>
+          <app-fav-btn [postID]="p._id!"></app-fav-btn>
+        </td>
+      </tr>
+    </table>
+    <div>
+      <div>Page: {{ page + 1 }}</div>
+      <div>
+        <button (click)="prevPage()">Previous</button>
+        <button (click)="nextPage()">Next</button>
+      </div>
+    </div>
+  </div>
+</div>

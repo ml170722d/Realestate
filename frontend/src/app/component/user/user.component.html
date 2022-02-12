@@ -1,0 +1,26 @@
+<div>
+  <div [ngSwitch]="user.type">
+    <div>
+      <app-welcome [name]="user.name!"></app-welcome>
+      <hr />
+      <div *ngSwitchCase="0"><app-admin></app-admin></div>
+      <div>
+        <div *ngSwitchCase="1"><app-advertiser></app-advertiser></div>
+        <div *ngSwitchCase="2"><app-buyer></app-buyer></div>
+        <hr />
+        <h3>Create post</h3>
+        <app-post-form></app-post-form>
+      </div>
+      <hr />
+      <app-post-list-owner [id]="user._id!"></app-post-list-owner>
+      <hr />
+      <h3>Change password</h3>
+      <app-change-pass [id]="user._id!"></app-change-pass>
+      <hr />
+      <button routerLink="/user/change/{{ user._id }}">Change Info</button>
+      <hr />
+      <app-logout [id]="user._id!"></app-logout>
+    </div>
+    <div *ngSwitchDefault><h1>ERROR</h1></div>
+  </div>
+</div>

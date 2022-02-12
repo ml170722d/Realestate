@@ -1,0 +1,7 @@
+<div>
+  <h3>Your posts</h3>
+  <div *ngFor="let p of list">
+    <app-post-basic-info [post]="p"></app-post-basic-info>
+    <button routerLink="/post/change/{{ p._id }}">Change</button>
+  </div>
+</div>
