@@ -57,7 +57,7 @@
     <tr>
       <td>Construction year:</td>
       <td>
-        <input [(ngModel)]="post.constructionYear" type="date" placeholder="" />
+        <input [(ngModel)]="constructionYear" type="date" placeholder="" />
       </td>
     </tr>
     <tr>
@@ -118,6 +118,11 @@
       <td>Total floors:</td>
       <td>
         <input [(ngModel)]="post.totalFloors" type="number" placeholder="" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <app-json-loader (e)="getEvent($event)"></app-json-loader>
       </td>
     </tr>
     <tr>
