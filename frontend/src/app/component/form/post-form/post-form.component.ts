@@ -111,7 +111,7 @@ export class PostFormComponent implements OnInit {
   }
 
   onCheckboxChange(ev: any, char: Characteristics) {
-    console.log(this.post.characteristics);
+    console.log(this.charLst);
     if (ev.target.checked) return this.addChar(char);
     return this.removeChar(char);
   }
@@ -123,5 +123,6 @@ export class PostFormComponent implements OnInit {
     const d: string = ev.constructionYear.toString() + '-01-01';
     this.constructionYear = d;
     this.post = p;
+    this.charLst = p.characteristics!;
   }
 }

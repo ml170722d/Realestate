@@ -119,7 +119,7 @@
           <label for="Agency">Agency:</label>
         </td>
         <td>
-          <select name="Agency">
+          <select name="Agency" [(ngModel)]="user.agency">
             <option *ngFor="let a of agencies" [value]="a._id">
               {{ a.name }} ({{ a.pib }})
             </option>

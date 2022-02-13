@@ -1,1 +1,25 @@
-<div></div>
+<div>
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td>
+        {{ advertiser?.name }}
+      </td>
+    </tr>
+    <tr>
+      <td>Surname:</td>
+      <td>
+        {{ advertiser?.surname }}
+      </td>
+    </tr>
+    <tr>
+      <td>Contact:</td>
+      <td [hidden]="hide">
+        {{ advertiser?.phone }}
+      </td>
+      <td>
+        <button (click)="toggle()">+</button>
+      </td>
+    </tr>
+  </table>
+</div>

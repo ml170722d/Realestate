@@ -12,6 +12,7 @@ export default class UserContorller {
       const query: IUser = {
         username: data.username,
         password: data.password,
+        access: true,
       };
 
       const result = await userSchema.findOne(query);

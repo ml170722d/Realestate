@@ -102,7 +102,7 @@
     <tr>
       <td>Advertiser:</td>
       <td>
-        <div>{{ post.advertiser }}</div>
+        <app-advertiser [advertiser]="post.advertiser"></app-advertiser>
       </td>
     </tr>
     <tr *ngFor="let item of post.pics">
